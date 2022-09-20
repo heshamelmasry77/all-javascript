@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2</title>
+
+	<script>
+		// ```var arr = [1, 90, 789, 56, 45, 34, 678, 78, -90, -6, 5, 3, 6]; ```
+		// Отсортируйте массив arr, используя алгоритм пузырьковой сортировки. 
+		var arr = [1, 90, 789, 56, 45, 34, 678, 78, -90, -6, 5, 3, 6];
+		alert(arr);
+
+		function bubbleSort(arr) {
+		    var n = arr.length;
+		    for (var i = 0; i < n-1; i++) { 
+		    	for (var j = 0; j < n-1-i; j++) { 
+		    		if (arr[j+1] < arr[j]) { 
+		    			var t = arr[j+1]; 
+		    			arr[j+1] = arr[j]; 
+		    			arr[j] = t; 
+		    		}
+		        }
+		     }                     
+		    return arr;
+		}
+
+		bubbleSort(arr);
+		alert(arr);
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 1 Homework Task 2</p>
+</body>
+</html>

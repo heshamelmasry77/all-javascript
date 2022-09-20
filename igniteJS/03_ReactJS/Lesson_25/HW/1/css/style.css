@@ -1,0 +1,78 @@
+@import 'bootstrap.css';
+@import 'bootstrap-theme.css';
+
+@import 'animation.css';
+ 
+li {
+    list-style-type: none; 
+    font-size: 18px;
+    padding: 5px 0;
+    border-bottom: 1px solid #e6d8d8;
+} 
+
+#container {
+    height: 155px;
+} 
+
+.test {
+    background-color: darkslategray; 
+    color: cornsilk; 
+} 
+
+span.glyphicon {
+    cursor: pointer;
+} 
+
+.margin {
+    margin-left: 35px; 
+    display: inline-block; 
+} 
+
+.panel-primary {
+    padding-left: 25px; 
+} 
+
+.panel {
+    margin: 0px; 
+}
+
+.well {
+    margin: 0px; 
+} 
+
+ul {
+    margin: 15px 0 0;
+    padding: 0 10px;
+} 
+
+#btn {
+    margin-bottom: 20px; 
+} 
+
+.show {
+    display: block;
+    float: right;
+}
+.hide {
+    display: none; 
+}
+
+.completed {
+    float: right;
+}
+
+.glyphicon {
+    margin-right: 15px;
+}
+
+.glyphicon-remove {
+    color: red;
+}
+
+.glyphicon-ok {
+    color: forestgreen;
+}
+
+.glyphicon-minus {
+    color: brown;
+}

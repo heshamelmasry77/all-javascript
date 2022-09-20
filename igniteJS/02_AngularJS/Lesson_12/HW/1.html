@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calcApp">
+<head>
+	<meta charset="UTF-8">
+	<title>L12 HW T1</title>
+
+	<link href="../Libraries/bootstrap.css" rel="stylesheet" />
+	<link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+	<script src="../Libraries/angular.js"></script>
+	<script>
+		// ### Задача 1
+        // Создайте приложение-калькулятор. В приложении должно быть два поля ввода и кнопки «+», «-», «*», «/». Реализуйте двунаправленную привязку таким образом, чтобы при нажатии на кнопки результат арифметических операций выводился на странице.
+
+		 var app = angular.module("calcApp", []);
+
+        app.controller("CalcAppCtrl", function ($scope) {
+
+			$scope.calculate = function (operation) {
+
+				if (!$scope.isNumeric(+$scope.num1) || !$scope.isNumeric(+$scope.num2)) {
+                    return alert('Введите корректные числовые значения в поля!');
+                }
+
+				switch (operation) {
+					case 'sum':
+						$scope.res = +$scope.num1 + +$scope.num2;
+						break;
+
+					case 'substract':
+						$scope.res = +$scope.num1 - +$scope.num2;
+						break;
+
+					case 'multiply':
+						$scope.res = +$scope.num1 * +$scope.num2;
+						break;
+
+					case 'divide':
+						if ($scope.num2 != 0) {
+							$scope.res = (+$scope.num1 / +$scope.num2).toFixed(3);
+						} else {
+							$scope.res = "деление на 0";
+						}
+						break;
+
+					default:
+						$scope.res = "";
+				}
+				
+			}
+
+			$scope.isNumeric = function (arg) {
+                return !isNaN(arg) && isFinite(arg);
+            };
+
+			$scope.res = "";
+
+        });
+	</script>
+
+</head>
+<body>
+	<p>Lesson 12 Homework Task 1</p>
+	
+	<div ng-controller="CalcAppCtrl">
+		<h2>Калькулятор</h2> 
+
+		<div>
+			<input class="text-right" ng-model="num1" /> <input class="text-right" ng-model="num2" /><br><br>
+			<p>Результат: <span ng-bind="res"></span></p><br>
+
+			<input type="button" value="+" name="sum" class="btn btn-default" ng-click="calculate('sum')"> 
+			<input type="button" value="-" name="substract" class="btn btn-default" ng-click="calculate('substract')">
+			<input type="button" value="*" name="multiply" class="btn btn-default" ng-click="calculate('multiply')"> 
+			<input type="button" value="/" name="divide" class="btn btn-default" ng-click="calculate('divide')"> <br>
+		</div>
+	</div>
+</body>
+</html>

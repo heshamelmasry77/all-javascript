@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L15 CW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 2
+        // Создайте страницу с двумя кнопками Start и Stop. Реализуйте следующее:
+        // при нажатии на кнопку start, на страницу начинают выводиться чила в возрастающем порядке с интервалом 1 с.
+        // При нажатии на кнопку stop вывод чисел останавливается.
+        // При нажатии на кнопку start отсчет начинается всегда с 0.
+        
+        var myApp = angular.module('myApp', [])
+        .controller('MyAppCtrl', function ($scope, $interval, $timeout, $window) {
+
+            $scope.number = 0;
+            $scope.interval = "";
+
+            $scope.start = function() {
+                if ($scope.interval) return;
+
+                $scope.number = 0;
+
+                $scope.interval = $interval(function () {
+                    $scope.number += 1;
+                }, 1000);
+            };
+
+            $scope.stop = function() {
+                if ($scope.interval) {
+                    $interval.cancel($scope.interval);
+                    $scope.interval = "";
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 15 Classwork Task 2</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <button class="btn btn-default" ng-click="start()">Start</button>
+        <button class="btn btn-default" ng-click="stop()">Stop</button>
+        The number is: {{number}}
+    </div>
+</body>
+</html>

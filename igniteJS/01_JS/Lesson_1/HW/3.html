@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3</title>
+
+	<script>
+		// ###Task 3.
+		// Write a function bigToSmall that takes one argument arr (two-dimensional array).
+		// Your task:
+		// 1. Convert a two-dimensional array to a one-dimensional one.
+		// 2. Sort the array in descending order.
+		// 3. Use the ‘>’ character as a separator when converting an array to a string.
+
+		// For example:
+		// ```
+		// bigToSmall([[1,2],[3,4],[5,6]])  "6>5>4>3>2>1"
+		// bigToSmall([[1,3,5],[2,4,6]])  "6>5>4>3>2>1"
+		// bigToSmall([[1,1],[1],[1,1]])  "1>1>1>1>1"
+		// ```
+		
+
+		function bigToSmall(arr) {
+			arr = arr.reduce(function(a, b){
+			     return a.concat(b);
+			});
+
+			bubbleSort(arr);
+
+			return arr.join('>');
+		}
+
+		function bubbleSort(arr) {
+		    var n = arr.length;
+		    for (var i = 0; i < n-1; i++) { 
+		    	for (var j = 0; j < n-1-i; j++) { 
+		    		if (arr[j+1] > arr[j]) { 
+		    			var t = arr[j+1]; 
+		    			arr[j+1] = arr[j]; 
+		    			arr[j] = t; 
+		    		}
+		        }
+		     }                     
+		    return arr;
+		}
+
+		var array1 = [[1,2],[3,4],[5,6]];
+		var array2 = [[1,3,5],[2,4,6]];
+		var array3 = [[1,1],[1],[1,1]];
+
+		alert(bigToSmall(array1));
+		alert(bigToSmall(array2));
+		alert(bigToSmall(array3));
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 1 Homework Task 3</p>
+</body>
+</html>

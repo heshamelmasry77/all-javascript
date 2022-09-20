@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L18 CW T1</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        .well { padding: 29px 40px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 1
+        // Создайте директиву, которая создает кнопку, при нажатии на которую запускается счетчик (на экран начинают выводиться числа в возрастающей последовательности с интервалом в 1 с).
+        
+        var myApp = angular.module('myApp', [])
+        .controller('MyAppCtrl', function ($scope, $interval) {
+            $scope.counter = 0;
+            var interval;
+
+            $scope.startCounter = function () {
+                if (angular.isDefined(interval)) return;
+
+                interval = $interval(function () {
+                    $scope.counter++;
+                }, 1000);
+            };
+        })
+        .directive('count', function () {
+            return {
+                restrict: 'A',
+                templateUrl: 'templates/template_1.html',
+                controller: 'MyAppCtrl'
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 18 Classwork Task 1</p>
+
+    <div class="container">
+        <div count></div>
+    </div>
+</body>
+</html>

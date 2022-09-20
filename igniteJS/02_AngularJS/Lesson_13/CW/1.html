@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L13 CW T1</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body {margin: 20px;}
+        div div { width: 400px; height: 300px; margin-bottom: 10px; border: 1px solid #ccc; }
+        .text-center { text-align: center; }
+        .font-32 { font-size: 32px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 1
+        // Создайте страницу с элементом div и кнопкой. Реализуйте следующее: При нажатии на кнопку элементу div присваиваются 2 CSS-класса
+        
+        var myApp = angular.module('myApp', [])
+        .controller('MyAppCtrl', function ($scope) {
+
+            $scope.addClasses = function(){
+                
+                $scope.classList = 'text-center font-32';
+            }
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 13 Classwork Task 1</p>
+    
+    <div class="container" ng-controller="MyAppCtrl">
+        <div ng-class="classList">Simple text</div>
+
+        <input type="button" value="Add classes" ng-click="addClasses()">
+    </div>
+</body>
+</html>

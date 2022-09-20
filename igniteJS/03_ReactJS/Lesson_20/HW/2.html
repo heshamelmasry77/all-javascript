@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L20 HW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    
+    <!--  
+        ### Задача 2
+        Модифицируйте код предыдущей задачи. Реализуйте следующее:
+        При каждом обновлении свойств компонента, содержащего список users, его текст окрашивается в случайный цвет. Используйте при решении задачи методы жизненного цикла React компонентов. Функция для получения случайного цвета:
+            function getRandomColor() {
+                var h = Math.floor(Math.random() * (255 - 1) + 1); 
+                var s = Math.floor(Math.random() * (100 - 1) + 1) + '%'; 
+                var l = '50%'; 
+                var randomColor = 'hsl(' + h + ',' + s + ',' + l + ')';
+                return randomColor;
+            }
+    -->
+</head>
+<body>
+    <p>Lesson 20 Homework Task 2</p>
+
+    <div class="container">
+        <div id='task'></div>
+    </div>
+
+    <script src="build/bundle_2.js"></script>
+</body>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L8 HW T2</title>
+
+    <style>
+        div { display: inline-block; width: 100px; height: 50px; background-color: pink; text-align: center; }
+        button {height: 36px; border: 2px solid black; vertical-align: bottom;}
+        span[name="tooltip"] { display: none; position: absolute; padding: 0 5px; border: 2px solid blue; background-color: white; text-align: center; }
+    </style>
+</head>
+<body>
+    <p>Lesson 8 Homework Task 2</p>
+
+    <div>First</div>
+    <button data-tooltip="подсказка длиннее, чем элемент">Короткая кнопка</button>
+    <div>Second</div>
+
+    <br /><br />
+
+    <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
+    <div>Third</div>
+    <div>Fourth</div>
+
+    <span name="tooltip"></span>
+
+    <script>
+        // ### Задача 2
+        // При наведении мыши на элемент, на нём возникает событие mouseover, при удалении мыши с элемента – событие mouseout. Зная это, напишите JS-код, который будет делать так, что при наведении на элемент, если у него есть атрибут data-tooltip – над ним будет показываться подсказка с содержимым этого атрибута. Например, две кнопки:
+        // <button data-tooltip="подсказка длиннее, чем элемент">Короткая кнопка</button>
+        // <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
+
+        window.onload = function() {
+            var button = document.getElementsByTagName('button');
+            var tooltip = document.getElementsByName('tooltip')[0];
+
+            function showTooltip(e) {
+                var targetData = e.target.getAttribute('data-tooltip');
+
+                if (targetData) {
+                    tooltip.innerHTML = targetData;
+                    tooltip.style.display = 'block';
+                    tooltip.style.top = e.target.offsetTop - tooltip.offsetHeight + 'px';
+                    tooltip.style.left = e.target.offsetLeft + 'px';
+                };
+            }
+
+            function hideTooltip() {
+                tooltip.style.display = 'none';
+            }
+            
+            for (var i = 0; i < button.length; i++) {
+                button[i].addEventListener('mouseover', showTooltip);
+                button[i].addEventListener('mouseout', hideTooltip);
+            }
+        }
+    </script>
+</body>
+</html>

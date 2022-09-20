@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L9 HW T1</title>
+
+    <style>
+        ul { width: 250px; border: 1px dashed blue; }
+        li { margin-bottom: 10px; border: 1px solid gray; cursor: pointer; }
+        .selected { background: PaleGreen; }
+    </style>
+</head>
+<body>
+    <p>Lesson 9 Homework Task 1</p>
+    
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ul>
+  
+    <script>
+        // ### Задача 1
+        // Сделайте список, элементы которого можно выделять кликом.
+
+        window.onload = function() {
+            var li =  document.getElementsByTagName('li');
+            var lastSelectedLi = null;
+
+            for (var i = 0; i < li.length; i++) {
+                li[i].addEventListener('click', selectLi);
+                li[i].addEventListener('mousedown', cancelTextSelect);
+            }
+
+            function selectLi(e) {
+                if (e.target.tagName != "LI") return false;
+                if (lastSelectedLi) lastSelectedLi.classList.remove('selected');
+                e.target.classList.add('selected');
+                lastSelectedLi = e.target;
+            }
+
+            function cancelTextSelect(e) {
+               e.preventDefault();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mydApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L11 CW T1</title>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 1
+        // Создайте приложение, которое выводит на экран надпись 'Hello World!'.
+        var model = "Hello World!";
+
+        var helloWorldApp = angular.module('mydApp', []);
+
+        helloWorldApp.controller("helloWorldCtrl", function($scope) {
+            $scope.message = model;
+        });
+    </script>
+</head>
+<body ng-controller="helloWorldCtrl">
+    <p>Lesson 11 Classwork Task 1</p>
+
+    <h1>{{message}}</h1>
+</body>
+</html>

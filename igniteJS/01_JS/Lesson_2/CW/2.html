@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2</title>
+
+    <script>
+        // ###Task 2.
+        // Write a function that returns the number of own calls.
+
+        function countCalls() {
+            console.log(countCalls.currentCount)
+            countCalls.currentCount = (countCalls.currentCount || 0);
+
+            return alert("Here " + countCalls.currentCount++);
+        }
+
+        countCalls(); // 1
+        countCalls(); // 2
+        countCalls(); // 3
+    </script>
+
+</head>
+<body>
+<p>Lesson 2 Advanced questions Task 2</p>
+</body>
+</html>

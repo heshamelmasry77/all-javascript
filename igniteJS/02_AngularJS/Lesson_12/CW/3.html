@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L12 CW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 3
+        // Перепишите код предыдущей задачи с использованием директивы ng-include
+        
+        var helloWorldApp = angular.module('myApp', []);
+
+        helloWorldApp.controller("MyAppCtrl", function($scope) {
+
+            $scope.items = [
+            { name: "B Item", price: 10.9, category: "Category 1", count: 10, tax: 1.12, expiration: 10 },
+            { name: "A Item", price: 1.1, category: "Category 1", count: 8, tax: 0.55, expiration: 12 },
+            { name: "D Item", price: 2.6, category: "Category 2", count: 7, tax: 0.22, expiration: 5 },
+            { name: "C Item", price: 17.5, category: "Category 2", count: 33, tax: 2.77, expiration: 10 }];
+
+            $scope.checked = {
+                name: true,
+                price: true,
+                category: true,
+                count: true,
+                tax: true,
+                expiration: true
+            };
+
+            $scope.url = {
+                name: 'include/name.html',
+                price: 'include/price.html',
+                category: 'include/category.html',
+                count: 'include/count.html',
+                tax: 'include/tax.html',
+                expiration: 'include/expiration.html'
+            };
+
+            $scope.check = function (status, propName) {
+                if (status) return $scope.url[propName];
+                else return '';
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 12 Classwork Task 3</p>
+
+    <div class="container" ng-controller="MyAppCtrl" ng-cloak>
+        <h3>Массив items</h3>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Count</th>
+                    <th>Tax</th>
+                    <th>Expiration</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="item in items" ng-cloak>
+                <td>{{$index + 1}}</td>
+                <td><ng-include src="check(checked.name, 'name')"></ng-include></td>
+                <td><ng-include src="check(checked.price, 'price')"></ng-include></td>
+                <td><ng-include src="check(checked.category, 'category')"></ng-include></td>
+                <td><ng-include src="check(checked.count, 'count')"></ng-include></td>
+                <td><ng-include src="check(checked.tax, 'tax')"></ng-include></td>
+                <td><ng-include src="check(checked.expiration, 'expiration')"></ng-include></td>
+            </tr>
+        </table>
+
+        <div class="form-group">
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model='checked.name'> Name</label>
+                <label><input type="checkbox" ng-model='checked.price'> Price</label>
+                <label><input type="checkbox" ng-model='checked.category'> Category</label>
+                <label><input type="checkbox" ng-model='checked.count'> Count</label>
+                <label><input type="checkbox" ng-model='checked.tax'> Tax</label>
+                <label><input type="checkbox" ng-model='checked.expiration'> Expiration</label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L6 CW T1</title>
+</head>
+<body>
+    <p>Lesson 6 Classwork Task 1</p>
+
+    <div>Пользователи:</div>
+    <ul>
+        <li>user1</li>
+        <li>user2</li>
+    </ul>
+
+    <script>
+        // ### Задача 1
+        // Напишите код, который получит объект для тега head и запишет его в переменную.
+        // Напишите код, который получит объект для тега ul и запишет его в переменную.
+        // Напишите код, который получит объект для второго тега li и запишет его в переменную.
+
+        window.onload = function() {
+            var head = document.getElementsByTagName('head')[0]; 
+            var list = document.getElementsByTagName('ul')[0]; 
+            var listItem = document.getElementsByTagName('li')[1]; 
+
+            console.dir(head);
+            console.dir(list);
+            console.dir(listItem);
+        }
+    </script>
+</body>
+</html>

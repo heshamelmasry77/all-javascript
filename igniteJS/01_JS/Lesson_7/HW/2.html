@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L7 HW T2</title>
+
+    <style>
+        .container { margin: 50px 200px; }
+        .container > div { height: 200px; width: 200px; margin: 10px; display: inline-block; background-color: purple; }
+        .note { width: 60px; height: 60px; background: red; border: 1px solid gray;}
+        #third {text-align: center; }
+    </style>
+</head>
+<body>
+    <p>Lesson 7 Homework Task 2</p>
+
+    <div class="container">
+        <div id="first">First</div>
+        <div id="second" class="note"><span>Second</span></div>
+        
+        <div id="note"><span>Some text</span></div>
+
+        <div id="third">Third</div>
+        <div id="fourth" class="note"><span>Fourth</span></div>
+    </div>
+    
+    <script>
+        // ### Задача 2
+        // Создайте функцию positionAt(anchor, position, elem), которая позиционирует элемент elem, в зависимости от значения аргумента position: сверху ("top"), справа ("right") или снизу ("bottom"). Функция должна проводить позиционирование относительно элемента anchor.
+        // Используйте её, чтобы сделать функцию showNote(anchor, position, html), которая показывает элемент с классом class="note" и текстом html на позиции position рядом с элементом anchor.
+
+        window.onload = function() {
+           
+            function positionAt(anchor, position, element) { 
+                anchor.style.position = 'relative';
+                element.style.position = 'absolute';
+
+                anchor.appendChild(element);
+
+                if (position == "top") {
+                    element.style.top = 0;
+                    element.style.right = element.style.bottom = 'auto';
+                } else if (position == "bottom") {
+                    element.style.bottom = 0;
+                    element.style.top = element.style.right = 'auto';
+                } else if (position == "right") {
+                    element.style.right = 0;
+                    element.style.top = element.style.bottom = 'auto';
+                };
+            }
+
+            function showNote (anchor, position, html) {
+                var div = document.createElement('div');
+                div.classList.add('note');
+                div.innerHTML = html;
+                
+                return positionAt(anchor, position, div);
+            };
+
+            var first = document.getElementById('first');
+            var second = document.getElementById('second');
+            var third = document.getElementById('third');
+            var fourth = document.getElementById('fourth');
+
+
+            positionAt(first, 'bottom', second);
+            positionAt(third, 'top', fourth);
+
+            var note = document.getElementById('note');
+            showNote(note, 'right', 'Nested 2');
+        }
+    </script>
+</body>
+</html>

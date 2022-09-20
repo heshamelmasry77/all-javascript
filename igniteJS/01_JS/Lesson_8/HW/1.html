@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L8 HW T1</title>
+
+    <style>
+        input { display: block; width: 200px; margin-bottom: 10px; }
+        .warning { background: red; }
+    </style>
+</head>
+<body>
+    <p>Lesson 8 Homework Task 1</p>
+    
+    <form action="#">
+        <input type="text" id='login' placeholder="Логин">
+        <input type="password" id='password' placeholder="Пароль">
+        <input type="tel" id='phone' placeholder="Телефон">
+        <input type="submit" id='button' value="Отправить">
+    </form>
+  
+    <script>
+        // ### Задача 1
+        // Создайте регистрационную форму: логин, пароль, телефон и кнопка "Отправить". По нажатию на кнопку "Отправить", проверьте корректность ввода данных с помощью JavaScript. 1) Логин - не должен содержать цифры. 2) Пароль - не дожен содержать знак $. 3) Телефон - должен содержать только цифры.
+        // Закрасьте фон поля ввода в красный цвет, если были введены неправильные данные.
+        // Используйте для решение данной задачи методы для работы со строками или регулярные выражения: link
+
+        window.onload = function() {
+
+            var login = document.getElementById('login');
+            var pass = document.getElementById('password');
+            var phone = document.getElementById('phone');
+            var button = document.getElementById('button');
+
+            function isValidLogin(element) {
+                element.classList.remove('warning');
+                if (isEmpty(element) || (element.value.search(/\d/) !== -1)) {
+                    element.classList.add('warning');
+                    return false;
+                }
+
+                return true;
+            }
+
+            function isValidPass(element) {
+                element.classList.remove('warning');
+                if (isEmpty(element) || (element.value.search(/[$]/) !== -1)) {
+                    element.classList.add('warning');
+                    return false;
+                }
+
+                return true;
+            }
+
+            function isValidPhone(element) {
+                element.classList.remove('warning');
+                if (isEmpty(element) || (element.value.search(/\D/) !== -1)) {
+                    element.classList.add('warning');
+                    return false;
+                }
+
+                return true;
+            }
+
+            function isEmpty(element) {
+                if (element.value == '') {
+                    element.classList.add('warning');
+                    return true;
+                };
+                return false;
+            };
+
+            button.onclick = function (event) {
+                var checkLogin = isValidLogin(login);
+                var checkPass = isValidPass(pass);
+                var checkPhone = isValidPhone(phone);
+
+                if (!checkLogin || !checkPass || !checkPhone) {
+                    event.preventDefault();
+                    console.log('Not submited');
+                } else {
+                    console.log('Submited');
+                }
+            };
+        }
+    </script>
+</body>
+</html>

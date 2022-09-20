@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L10 HW T1</title>
+
+    <style>
+        div { margin-bottom: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <p>Lesson 10 Homework Task 1</p>
+
+    <input type="button" id="loader" value="Загрузить">
+
+    <script>
+        // ### Задача 1
+        // Создайте две HTML страницы с разным контентом. Создайте страницу, в которой находиться сценарий загружающий и отображающий контент двух этих страниц при нажатии на кнопку. Контент должен загружаться асинхронно.
+
+        window.onload = function() {
+          
+            var button = document.getElementById('loader');
+           
+            button.onclick = function () {
+                getContent('get', 'files/file_1.html');
+                getContent('get', 'files/file_2.html');
+            }
+
+            function getContent(method, url, async) {
+                var xhr = new XMLHttpRequest();
+                xhr.open(method, url, true);
+                
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var div = document.body.appendChild(document.createElement('div'));
+                            div.innerHTML = splitContent(xhr.responseText);
+                        }
+                    }
+                }
+
+                xhr.send();
+            }
+
+            function splitContent(str) {
+                var openTag = "<body>";
+                var closeTag = "</body>";
+
+                var startPos = str.indexOf(openTag);
+                var endPos = str.indexOf(closeTag);
+
+                return str.slice(startPos + openTag.length, endPos).trim();
+            }
+        }
+    </script>
+</body>
+</html>

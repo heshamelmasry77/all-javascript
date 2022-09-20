@@ -1,0 +1,9 @@
+<div>
+	<nav class="navbar navbar-default"> 
+		<ul class="nav nav-pills"> 
+			<li ng-repeat="item in data"><a href="#" ng-click="showPrice($index)">{{item.name}}</a></li>
+		</ul>
+	</nav>
+
+	<div class="panel well" price-dir>Цена: {{price}}</div>
+</div>

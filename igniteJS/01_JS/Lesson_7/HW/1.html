@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L7 HW T1</title>
+
+    <style>
+        div { display: inline-block; width: 250px; height: 250px; position: absolute; }
+        #yellow { left: 0; background-color: yellow; }
+        #green { left: 250px; background-color: green; }
+        #blue { left: 500px; background-color: blue; }
+    </style>
+</head>
+<body>
+    <p>Lesson 7 Homework Task 1</p>
+    
+    <div id="yellow"></div>
+    <div id ="green"></div>
+    <div id ="blue"></div>
+  
+    <script>
+        // ### Задача 1
+        // Создайте страницу с 3 элементами div. Напишите сценарий, который будет произвольно менять положение этих элементов на странице каждую секунду.
+
+        window.onload = function() {
+
+            function divReplace() {
+                var width = 250;
+                var arr = [0, 1, 2];
+                var div = document.getElementsByTagName('div');
+
+                for(var i = 0; i < div.length; i++) {
+                    div[i].style.left = arr.splice(Math.floor(Math.random()*arr.length), 1) * width + "px";
+                }
+            };
+            
+            setInterval(divReplace, 1000);
+        }
+    </script>
+</body>
+</html>

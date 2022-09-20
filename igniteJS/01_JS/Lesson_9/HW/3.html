@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L9 HW T3</title>
+
+    <style>
+        input { width: 50px; text-align: right; }
+        #block { width: 50px; height: 50px; background: green; position: absolute; top: 150px; left: 150px; z-index: 10; }
+    </style>
+</head>
+<body>
+    <p>Lesson 9 Homework Task 3</p>
+
+    <input type="text" id="inputX" placeholder="X">
+    <input type="text" id="inputY" placeholder="Y">
+    <button id="button">Переместить</button>
+    <div id="block"></div>
+
+    <script>
+        // ### Задача 3
+        // Создайте страницу с двумя полями ввода, кнопкой и элементом div с шириной и высотой 50px. Создайте сценарий, который по нажатию на кнопку будет перемещать div в координаты, указанные в полях ввода. В случае, если при нажатии кнопки хотя бы одно из полей ввода не заполнено, пользователь должен получить предупреждение, а событие click должно быть отменено.
+
+        window.onload = function () {
+            var button = document.getElementById('button');
+            var inputX = document.getElementById('inputX');
+            var inputY = document.getElementById('inputY');
+            var block = document.getElementById('block');
+            
+            var allowedHeight = window.innerHeight - block.offsetHeight;
+            var allowedWidth = window.innerWidth - block.offsetWidth;
+            
+            button.onclick = function (e) {
+                var coordX = +inputX.value;
+                var coordY = +inputY.value;
+
+                if (inputX.value == '' || inputY.value == '') {
+                    alert('Заполните оба поля ввода');
+                    return false;
+                };
+
+                if (!isNumeric(coordX) || !isNumeric(coordY)) {
+                    alert('Одно из значений некорректное');
+                    return false;
+                };
+
+                if (coordX < 0 || coordX > allowedWidth) {
+                    alert('Введите координату X в диапазоне от 0 до ' + allowedWidth + ' px');
+                    return false;
+                };
+
+                if (coordY < 0 || coordY > allowedHeight) {
+                    alert('Введите координату Y в диапазоне от 0 до ' + allowedHeight + ' px');
+                    return false;
+                };
+
+                block.style.left = coordX + 'px';
+                block.style.top = coordY + 'px';
+            };
+
+            function isNumeric(arg) {
+                return !isNaN(arg) && isFinite(arg);
+            };
+        };
+    </script>
+</body>
+</html>

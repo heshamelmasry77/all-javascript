@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1</title>
+
+    <script>
+        // ### Задача 1 
+        // Напишите программу, которая принимает математическое выражение (используйте prompt) и результат его получает через eval. При ошибке нужно выводить сообщение и просить изменить некорректный ввод. Ошибкой считается не только некорректное выражение, такое как 2+, но и выражение, возвращающее NaN, например 0/0.
+
+        function calcEval(message) {
+            var message = message || 'Введите математическое выражение:';
+            var result;
+
+            try {
+                var expression = prompt(message);
+                result = eval(expression);
+
+                if (isNaN(result) || result === undefined) {
+                    throw new Error();
+                }
+
+                alert(result);
+            } 
+            catch (e) {
+                message = 'Введите корректное математическое выражение!';
+                calcEval(message);
+            }
+        }
+
+        calcEval();
+    </script>
+
+</head>
+<body>
+    <p>Lesson 5 Homework Task 1</p>
+</body>
+</html>

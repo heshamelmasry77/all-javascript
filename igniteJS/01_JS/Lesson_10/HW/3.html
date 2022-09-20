@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L10 HW T3</title>
+
+    <style>
+        input { margin-bottom: 10px; width: 50px; text-align: right; }
+        div { margin-bottom: 10px; }
+        .number { width: 80px; }
+        .result { width: 120px; }
+        .calculator { width: 200px; padding: 0 20px; border: 1px solid green; text-align: center; }
+        .calculator > p {text-align: center;}
+    </style>
+</head>
+<body>
+    <p>Lesson 10 Homework Task 3</p>
+
+    <div class="calculator">
+        <p>Калькулятор</p>
+
+        <input type="text" class="number" name="first_num" value="0">
+        <input type="text" class="number" name="second_num" value="0">
+
+        <div>
+            <button name="sum">+</button>
+            <button name="substract">-</button>
+            <button name="multiply">*</button>
+            <button name="divide">/</button>
+        </div>
+        
+        <p>Результат</p>
+        <input type="text" class="result" name="result">
+    </div>
+
+    <script>
+        // ### Задача 3
+        // Разработайте страницу с двумя полями ввода и кнопкой. Пользователь должен вводить в поля ввода целочисленный значения, а нажатие по кнопке должно приводить к асинхронному запросу на сервер. Запрашивать следует обработчик CalcHandler.ashx, который находиться вместе с задачей в папке Homework, обработчик принимает два post параметра с именами ‘a’ и ‘b'. Результат который возвращает обработчик выведите на страницу (рекомендуется выполнять задачу в Visual Studio).
+
+        window.onload = function () {
+            function calculate(e) {
+
+                var value1 = input1.value;
+                var value2 = input2.value;
+
+                if (value1 === '' || value2 === '') {
+                    alert('Заполните оба поля ввода');
+                    return false;
+                };
+
+                value1 = +value1;
+                value2 = +value2;
+
+                if (!isNumeric(value1) || !isNumeric(value2)) {
+                    return alert('Введите корректные числовые значения в поля!');
+                }
+
+
+                //Формируем запрос
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('POST', 'files/CalcHandler.ashx', true);
+               
+                xhr.send('a=' + value1 + '&b=' + value2);
+                
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            result.value = xhr.responseText;
+                        }
+                    }
+                };
+            };
+
+            function isNumeric(arg) {
+                return !isNaN(arg) && isFinite(arg);
+            };
+
+            var button = document.getElementsByTagName('button');
+            var input1 = document.getElementsByName('first_num')[0];
+            var input2 = document.getElementsByName('second_num')[0];
+            var result = document.getElementsByName('result')[0];
+
+            for (var i = 0; i < button.length; i++) {
+                button[i].addEventListener('click', calculate);
+            }
+        };
+    </script>
+</body>
+</html>

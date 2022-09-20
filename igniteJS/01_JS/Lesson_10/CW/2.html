@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L10 CW T2</title>
+</head>
+<body>
+    <p>Lesson 10 Classwork Task 2</p>
+
+    <button onclick="loadPhones()" id="button">Загрузить phones.json!</button>
+
+    <script>
+        // ### Задача 2
+        // Создайте код, который загрузит файл phones.json и выведет все названия телефонов из него в виде списка. (файлы для задачи находятся в папке task_phone); 
+
+        function loadPhones() {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'task_phone/phones.json', true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState != 4) return;
+
+                button.innerHTML = 'Готово!';
+
+                if (xhr.status != 200) {
+                    // обработать ошибку
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                    // вывести результат
+
+                    var ul = document.createElement('ul');
+                    var data = JSON.parse(xhr.responseText);
+
+                    for (var i = 0; i < data.length; i++) {
+                        var li = document.createElement('li');
+                        li.innerHTML = data[i].name;
+                        ul.appendChild(li);
+                    }
+
+                    document.body.appendChild(ul);
+                }
+            }
+
+            xhr.send();
+
+            button.innerHTML = 'Загружаю...';
+            button.disabled = true;
+        }
+    </script>
+</body>
+</html>

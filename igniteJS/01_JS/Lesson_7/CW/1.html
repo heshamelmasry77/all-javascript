@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L7 CW T1</title>
+
+    <style>
+        #container { width: 300px; height: 100px; background-color: red; }
+        #inner { display:inline-block; width: 200px; height: 60px; background-color: yellow; }
+        span { background-color: green; }
+    </style>
+</head>
+<body>
+    <p>Lesson 7 Classwork Task 1</p>
+
+    <div id="container">
+        <span>SPAN</span>
+        <div id="inner">Simple text</div>
+    </div>
+
+    <script>
+        // ### Задача 1
+        // Создайте страницу. Разместите на ней произвольное количеством элементов. Разработайте сценарий, который будет по очереди перемещать span с текстом и интервалом в 400мс: 1) Перед элементом. 2) Внутри элемента перед тектом 3) Внетри элемента после текста. 4) После элемента.
+
+        window.onload = function() {
+            var inner = document.getElementById("inner");
+            var count = 0;
+            
+            function spanReplace() {
+                count ++;
+                
+                var span = document.getElementsByTagName("span")[0];
+
+                switch (count) {
+                    case 1:
+                        if (span != undefined) {
+                            span.parentNode.removeChild(span);
+                        }
+                        inner.insertAdjacentHTML("beforeBegin", span.outerHTML);
+                        break;
+                    case 2:
+                        span.parentNode.removeChild(span);
+                        inner.insertAdjacentHTML("afterBegin", span.outerHTML);
+                        break;
+                    case 3:
+                        inner.removeChild(span);
+                        inner.insertAdjacentHTML("beforeEnd", span.outerHTML);
+                        break;
+                    case 4:
+                        inner.removeChild(span);
+                        inner.insertAdjacentHTML("afterEnd", span.outerHTML);
+                        count = 0;
+                        break;
+                }
+            }
+
+            setInterval(spanReplace, 400);
+        }
+    </script>
+</body>
+</html>

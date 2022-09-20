@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L15 CW T1</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 1
+        // Создайте страницу с произвольным количеством блоков текста с заголовками. Создайте список заголовков вверху страницы. Используя сервис $anchorScroll, реализуйте навигацию на странице. При нажатии на заголовок в списке вверху страницы, страница должна быть автоматически прокручена до блока текста с соответствующим заголовком.
+        
+        var myApp = angular.module('myApp', [])
+        .controller('MyAppCtrl', function ($scope, $location, $anchorScroll) {
+            
+            $scope.li = [];
+            $scope.itemCount = 15;
+
+            for (var i = 1; i <= $scope.itemCount; i++) {
+                var item = "Title " + i;
+                $scope.li.push(item);
+            }
+
+            $scope.goAnchor = function (id) {
+                $location.hash(id);
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 15 Classwork Task 1</p>
+    
+    <div class="container" ng-controller="MyAppCtrl">
+        <ul class="list-group">
+            <li ng-repeat="item in li">
+                <span ng-click="goAnchor(item)">{{item}}</span>
+            </li>
+        </ul>
+
+        <div id="{{item}}" ng-repeat="item in li">
+            <h3>{{item}}</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam incidunt praesentium accusamus qui recusandae repudiandae, maiores ad! Qui, error? Id voluptates error fugiat maiores voluptatum nobis natus neque labore vitae?</p>
+        </div>
+    </div>
+</body>
+</html>

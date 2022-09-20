@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2</title>
+
+	<script>
+		// Create a function strCount that takes
+		// one argument (an object) and counts the number of properties of a string type.
+
+		// Example:
+		// ```
+		// strCount({
+		//   first: "1",
+		//   second: "2",
+		//   third: false,
+		//   fourth: ["anytime",2,3,4],
+		//   fifth:  null
+		//   })
+		//   // result 3
+		//   ```
+
+		function strCount(obj) {
+			var counter = 0;
+
+			for (var i in obj) {
+				if (typeof obj[i] === "string") {
+					counter++;
+				} else if (obj[i] === null) {
+					continue; //It causes the loop to immediately
+					          // jump to the next iteration of the loop.
+				} else if (typeof obj[i] === "object") {
+					counter += strCount(obj[i]);
+				}
+			}
+			return counter;
+		}
+
+		var obj = {
+			first: "1",
+			second: "2",
+			third: false,
+			fourth: ["anytime",2,3,4],
+			fifth:  null
+		};
+
+		alert(strCount(obj));
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 2 Homework Task 2</p>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L8 CW T2</title>
+
+    <style>
+       div { margin-top: 20px; width: 200px; height: 40px; border: 1px dotted brown; }
+    </style>
+</head>
+<body>
+    <p>Lesson 8 Classwork Task 2</p>
+    
+    <input type="text">
+    <input type="button" value="Write">
+
+    <div></div>
+
+    <script>
+        // ### Задача 2
+        // Создайте страницу. Разместите на странице поле ввода, кнопку и пустой div.
+        // Создайте сценарий, который при нажатии на кнопку будет записывать содержимое поля ввода в пустой div.
+
+        window.onload = function() {
+            var inputArr = document.getElementsByTagName('input');
+            var input = inputArr[0];
+            var button = inputArr[1];
+            var div = document.getElementsByTagName('div')[0];
+
+            button.onclick = function () {
+                if (!input.value) return;
+                div.innerHTML = "";
+                div.innerHTML += input.value;
+                //input.value = "";
+            }
+        }
+    </script>
+</body>
+</html>

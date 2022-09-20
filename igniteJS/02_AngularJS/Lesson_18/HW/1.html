@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L18 HW T1</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    
+    <style>
+        body { margin: 20px; }
+        .navbar { display: inline-block; padding: 5px 10px; background-color: #ccc;}
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 1
+        // Есть массив items:
+        // [{ name: "Table", price: 44.10 },
+        //  { name: "Chair", price: 21.20 },
+        //  { name: "Pillow", price: 12.20 },
+        //  { name: "Picture", price: 112.70 },
+        //  { name: "Lamp", price: 28.31 } ]; 
+        // Создайте две директивы. Первая создает панель меню с элементами, взятыми из свойства name массива items. Вторая директива реализует следующее:
+        // при клике по элементу на панели меню, пользователю показывается соответственный контент, взятый из свойства price массива items. Директивы используют общий контроллер.
+
+        var myApp = angular.module('myApp', [])
+        .controller('menuCtrl', function ($scope) {
+            $scope.data = [
+                { name: "Table", price: 44.10 },
+                { name: "Chair", price: 21.20 },
+                { name: "Pillow", price: 12.20 },
+                { name: "Picture", price: 112.70 },
+                { name: "Lamp", price: 28.31 }];
+        })
+        .directive('menuDir', function(){
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'templates/template_1.html',
+                controller: 'menuCtrl'
+            };
+        })
+        .directive('priceDir', function () {
+            return {
+                restrict: 'A',
+                require: '^menuDir',
+                controller: 'menuCtrl',
+                link: function (scope, elem, attrs) {
+                    scope.showPrice = function (index) {
+                        scope.price = scope.data[index].price;
+                    };
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 18 Homework Task 1</p>
+
+    <div class="container">
+        <h3>Меню</h3>
+        <menu-dir></menu-dir>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2</title>
+
+	<script>
+		// ###Задача 2  
+		// Напишите функцию-конструктор Calculator, которая создает объект с тремя методами:
+		// * Метод read() запрашивает два значения при помощи prompt и запоминает их в свойствах объекта.
+		// * Метод sum() возвращает сумму двух значений принятых от пользователя.
+		// * Метод mul() возвращает произведение двух значений принятых от пользователя. 
+
+		// Пример использования:
+		// ```
+		// var calculator = new Calculator();
+		// calculator.read();
+
+		// alert( "Сумма=" + calculator.sum() );
+		// alert( "Произведение=" + calculator.mul() );
+
+		// ``` 
+
+		function Calculator() {
+			this.read = function () {
+				this.x = +prompt('Введите первое число:', 0);
+				this.y = +prompt('Введите второе число:', 0);
+			};
+			this.sum = function () {
+				return this.x + this.y;
+			};
+			this.mul = function () {
+				return this.x * this.y;
+			}
+		}
+
+		var calculator = new Calculator();
+		calculator.read();
+
+		alert("Сумма = " + calculator.sum());
+		alert("Произведение = " + calculator.mul());
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 3 Classwork Task 2</p>
+</body>
+</html>

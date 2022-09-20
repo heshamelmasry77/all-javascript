@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L6 HW T1</title>
+</head>
+<body>
+    <p>Lesson 6 Homework Task 1</p>
+
+    <ul>
+        <li>Животные
+            <ul>
+                <li>Млекопитающие
+                    <ul>
+                        <li>Коровы</li>
+                        <li>Ослы</li>
+                        <li>Собаки</li>
+                        <li>Тигры</li>
+                    </ul>
+                </li>
+                <li>Другие
+                    <ul>
+                        <li>Змеи</li>
+                        <li>Птицы</li>
+                        <li>Ящерицы</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Рыбы
+            <ul>
+                <li>Аквариумные
+                    <ul>
+                        <li>Гуппи</li>
+                        <li>Скалярии</li>
+                    </ul>
+                </li>
+                <li>Морские
+                    <ul>
+                        <li>Морская форель</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        // ### Задача 1
+        // Есть дерево из тегов ul и li.
+        // Напишите код, который для каждого элемента li выведет:
+        // Текст непосредственно в нём указанный (без подразделов).
+        // Количество всех вложенных в него элементов li.
+
+        window.onload = function() {
+            var listItem = document.getElementsByTagName('li');
+
+            for (var i = 0; i < listItem.length; i++) {
+                var item_text = listItem[i].childNodes[0].data.trim();
+                var nestedItems = countChild(listItem[i]) - 1;
+                
+                console.log("Текст элемента: " + item_text);
+                console.log("Количество вложенных li: " + nestedItems);
+            }
+
+            function countChild(item) {
+                var result = 0;
+
+                if (item.nodeName === "LI") {
+                    result ++; 
+                }
+
+                if (item.children.length > 0) {
+                    for (var i = 0; i < item.children.length; i++) {
+                        result += countChild(item.children[i]); 
+                    }
+                }
+
+                return result;
+            }
+        }
+    </script>
+</body>
+</html>

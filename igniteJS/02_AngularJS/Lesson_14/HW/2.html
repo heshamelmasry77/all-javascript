@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskListApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L14 HW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 2
+        // Создайте приложение с интерфейсом показанном в файле template.png. Файл находится в папке Task. Напишите сервис, который после каждого изменения формы, будет создавать JSON обьект с новыми данными и отправлять на сервер. Выведите подготовленный к отправке объект на экран.
+
+        // Данные
+        var taskList = [
+            {id: 0, name: 'Отремонтировать телефон', description: 'Произвести замену дисплея', duedate: '25/08/2016', completed: false},
+            {id: 1, name: 'Подготовить доклад', description: 'Подготовить небольшой доклад о новом приложении', duedate: '29/08/2016', completed: false}
+        ];
+
+        // Модель
+        var model = (function(data) {
+            function getCurrentId() {
+                if (!data || data.length == 0) 
+                    return 0;
+                else 
+                    return data[data.length-1].id + 1;
+            }
+
+            function _addItem(name, duedate, description, completed) {
+                data.push({
+                    id: getCurrentId(),
+                    name: name,
+                    duedate: duedate,
+                    description: description,
+                    completed: completed
+                });
+            }
+
+            function _removeItem(id) {
+                data.forEach(function (e, index) {
+                    if (e.id == id) {
+                        data.splice(index, 1);
+                    }
+                })
+            }
+
+            function _updateItem(id, name, duedate, description, completed) {
+               var arr = [];
+                data.forEach(function (e, index) {
+                    if (e.id == id) {
+                        data[index].id = id;
+                        data[index].name = name ;
+                        data[index].duedate = duedate ;
+                        data[index].description = description ;
+
+                        arr.push(completed, data[index].completed);
+                        
+                        if (completed !== 'undefined') { // сохранять статус чекбокса при значении false 
+                            data[index].completed =  completed;
+                            arr.push(data[index].completed);
+                        }
+                    }
+                })
+                return arr;
+            }
+
+            function _updateItemId(id, value) {
+                data.forEach(function (e, index) {
+                    if (e.id == id + 1) {
+                        data[index].id = id;
+                        id++;
+                    }
+                })
+            }
+
+            return {
+                addItem: _addItem,
+                updateItem: _updateItem,
+                removeItem: _removeItem,
+                updateItemId: _updateItemId
+            };
+        })(taskList);
+
+        // Модуль
+        var taskListApp = angular.module("taskListApp", []);
+
+        function makeJSON() {
+            return function (obj) {
+
+                var objJSON = JSON.stringify(obj, function (key, val) {
+                    if (key == '$$hashKey') {
+                        return undefined;
+                    }
+                    return val;
+                });
+
+                console.log(objJSON);
+                alert(objJSON);
+
+                return objJSON;
+            };
+        }
+
+        taskListApp.service("prepareJSON", makeJSON);
+
+        // Контроллер
+        taskListApp.controller("TaskListCtrl", ['$scope', 'prepareJSON', '$http', function ($scope, prepareJSON, $http) {
+
+            $scope.tasks = taskList;
+
+            $scope.currentId = 0;
+            $scope.form = document.getElementById('form');
+            $scope.submit = form.querySelector('input[type="submit"]');
+            $scope.modifyButton = document.getElementById('but1');
+            $scope.cancelButton = document.getElementById('but2');
+            
+            $scope.addMode = function () {
+                $scope.submit.style.display = 'inline-block';
+                $scope.modifyButton.style.display = 'none';
+                $scope.cancelButton.style.display = 'none';
+            }
+
+            $scope.editMode = function () {
+                $scope.submit.style.display = 'none';
+                $scope.modifyButton.style.display = 'inline-block';
+                $scope.cancelButton.style.display = 'inline-block';
+            }
+
+            $scope.getValues = function () {
+                $scope.taskName = $scope.form[0].value;
+                $scope.taskDueDate = $scope.form[1].value;
+                $scope.taskDescription = $scope.form[2].value;
+                $scope.taskCompleted = $scope.form[3].checked;
+            }
+
+            $scope.defaultValues = function () {
+                $scope.form[0].value = "";
+                $scope.form[1].value = "";
+                $scope.form[2].value = "";
+                $scope.form[3].checked = false;
+
+                $scope.getValues();
+            }
+
+            $scope.addMode();
+
+
+            $scope.addItems = function () {
+                model.addItem($scope.taskName, $scope.taskDueDate, $scope.taskDescription, $scope.taskCompleted);
+                $scope.defaultValues();
+
+                $scope.sendRequest($scope.getJSON());
+            }
+
+            $scope.modifyItem = function () {
+                $scope.getValues();
+                model.updateItem($scope.currentId, $scope.taskName, $scope.taskDueDate, $scope.taskDescription, $scope.taskCompleted);
+
+                $scope.defaultValues();
+                $scope.addMode();
+
+                $scope.sendRequest($scope.getJSON());
+            }
+
+            $scope.cancelChanges = function () {
+                $scope.addMode();
+                $scope.defaultValues();
+            }
+
+            $scope.showText = function (completed) {
+                return completed ? "Yes" : "No";
+            }
+
+            $scope.setStyle = function (completed) {
+                return completed ? "color:green" : "color:red; font-weight: bold";
+            }
+
+
+            $scope.removeItem = function (id) {
+                model.removeItem(id);
+                model.updateItemId(id);
+            }
+
+            $scope.updItem = function (task) {
+                $scope.editMode();
+
+                $scope.form[0].value = this.task.name || "";
+                $scope.form[1].value = this.task.duedate || "";
+                $scope.form[2].value = this.task.description || "";
+                $scope.form[3].checked = this.task.completed;
+
+                $scope.currentId = this.task.id;
+                $scope.taskCompleted = this.task.completed;
+            }
+
+
+            $scope.getJSON = function () {
+                $scope.preparedData = prepareJSON($scope.tasks);
+            };
+
+            $scope.sendRequest = function () {
+                $http({
+                    method: 'POST',
+                    url: '#',
+                    data: $scope.preparedData
+                }).then(function successHandler(response) {
+                    $scope.tableHeaders = response.data;
+                    alert('Success ' + response.statusText);
+                }, function errorHandler(response) {
+                    alert('Error!!! ' + response.statusText); 
+                });
+            }
+        }]);
+    </script>
+</head>
+
+<body>
+    <p>Lesson 14 Homework Task 2</p>
+
+    <div class="container" ng-controller="TaskListCtrl">
+        <h3>ToDo List</h3>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Completed</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="task in tasks" ng-cloak>
+                <td>{{task.id+1}}</td>
+                <td>{{task.name}}</td>
+                <td>{{task.description}}</td>
+                <td>{{task.duedate}}</td>
+                <td>  
+                    <span style="{{setStyle(task.completed)}}">
+                        {{showText(task.completed)}}
+                    </span>
+                </td>
+                <td>
+                    <input type="button" class="btn btn-default" value="Edit" ng-click="updItem(task)"> 
+                    <input type="button" class="btn btn-danger" value="Delete" ng-click="removeItem(task.id)">
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            <!-- Форма для добавления новых задач -->
+            <form class="form-horizontal" id="form">
+                <div class="form-group row">
+                    <label for="input1" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input1" placeholder="Введите название задания" ng-model="taskName">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="input2" class="col-sm-2 control-label">Due Date</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input2" placeholder="Введите дату выполнения" ng-model="taskDueDate">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="textarea1" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="textarea1" placeholder="Введите описание" ng-model="taskDescription"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inlineCheckbox1" class="col-sm-2 control-label">Completed</label>
+                    <div class="col-sm-10">
+                        <div class="checkbox">
+                            <input type="checkbox" id="inlineCheckbox1" style="margin: 4px 0 0" ng-model="taskCompleted">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" class="btn btn-default" ng-click="addItems()" value="Add">
+
+                        <input type="button" id="but1" class="btn btn-info" ng-click="modifyItem()" value="Modify">
+                        <input type="button" id="but2" class="btn btn-default" ng-click="cancelChanges()" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

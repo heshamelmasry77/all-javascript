@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L6 HW T3</title>
+</head>
+<body>
+    <p>Lesson 6 Homework Task 3</p>
+
+    <div> 
+        <h1>Heading 1</h1>
+        <p class="paragraph">
+            <ul>
+                <li>List Item 1</li> 
+                <li>List Item 2</li>
+            </ul>
+        </p>
+    </div> 
+    <div>
+        <p class="paragraph"> 
+            <h1>Heading 2</h1>
+            <ol>
+                <li>List Item 1</li> 
+                <li>List Item 2</li>
+            </ol>
+        </p>
+    </div>
+
+    <script>
+        // ### Задача 3
+        // Метод elem.closest(css) для поиска ближайшего родителя, удовлетворяющего селектору css, не поддерживается некоторыми браузерами, например IE11-. Создайте для него полифилл.
+
+        window.onload = function() {
+            if (Element.prototype.closestNew === undefined) { // для IE9+
+                Element.prototype.closestNew = function (css) {
+                    var elem = this;
+
+                    function matches(element, selector) {
+                        var matches = document.querySelectorAll(selector);
+                        
+                        return Array.prototype.some.call(matches, function(e) {
+                            return e === element;
+                        });
+                    }
+                    
+                    while (elem) {
+                        if (matches(elem, css)) {
+                            return elem; 
+                        }
+
+                        elem = elem.parentElement;
+                    }
+
+                    return null;
+                };
+            }
+
+            var elements = document.getElementsByTagName('li'); 
+
+            for (var i = 0; i < elements.length; i++) {
+                // if (elements[i].closest('ol')) {
+                //     elements[i].closest('ol').style.color = 'red'; 
+                // }
+
+                if (elements[i].closestNew('ol')) {
+                    elements[i].closestNew('ol').style.color = 'red'; 
+                }
+            }
+        }
+    </script>
+</body>
+</html>

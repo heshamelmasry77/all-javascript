@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L17 CW T1</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        .well { padding: 29px 40px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 1
+        // Создайте пользовательскую директиву, которой можно передать массив, а результатом её работы будет сгенерированный список.
+        
+        var myApp = angular.module('myApp', [])
+        .controller('MyAppCtrl', function ($scope) {
+            $scope.list = [1, 3, "Volga", false, 43, '88+1', 97];
+        })
+        .directive('itemList', function () {
+           return {
+                link: function (scope, element, attributes) {
+                    scope.data = scope[attributes["itemList"]];
+
+                    if (angular.isDefined(scope.data)) {
+                        var elem = angular.element('<ul class="list-group">');
+
+                        for (i = 0; i < scope.data.length; i++) {
+                            var listItem = angular.element('<li>');
+                            elem.append(listItem.text(scope.data[i]));
+                        }
+
+                        element.append(elem);
+                    }
+                },
+                restrict: "A"
+           };
+       });
+    </script>
+</head>
+<body>
+    <p>Lesson 17 Classwork Task 1</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <h3>Список из массива данных</h3>
+        <div item-list="list" class="well"></div> 
+    </div>
+</body>
+</html>

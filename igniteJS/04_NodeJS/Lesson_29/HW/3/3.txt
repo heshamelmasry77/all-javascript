@@ -1,0 +1,11 @@
+Request header #3
+
+host: localhost:1337 
+user-agent: Mozilla/5.0 (Windows NT 5.1; rv:49.0) Gecko/20100101 Firefox/49.0 
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 
+accept-language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3 
+accept-encoding: gzip, deflate 
+referer: http://localhost:1337/ 
+content-length: 20 
+content-type: text/plain;charset=UTF-8 
+connection: keep-alive 

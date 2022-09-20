@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1</title>
+
+	<script>
+		// ###Задача 1  
+		// Напишите функцию sum, которая будет работать как показано в примере ниже: 
+		// ```
+		// sum(1)(2) == 3; // 1 + 2
+		// sum(1)(2)(3) == 6; // 1 + 2 + 3
+		// sum(5)(-1)(2) == 6
+		// sum(6)(-1)(-2)(-3) == 0
+		// sum(0)(1)(2)(3)(4)(5) == 15
+		// ```
+		// Количество скобок может быть любым.
+
+		function sum(x) {
+			return function nextSum(y) {
+				x += y;
+
+				nextSum.toString = function () {
+					return x;
+				}
+
+				return nextSum;
+			}
+		};
+
+		alert(sum(1)(2));
+		alert(sum(1)(2)(3));
+		alert(sum(5)(-1)(2));
+		alert(sum(6)(-1)(-2)(-3));
+		alert(sum(0)(1)(2)(3)(4)(5));
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 3 Homework Task 1</p>
+</body>
+</html>

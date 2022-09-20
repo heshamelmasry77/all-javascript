@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1</title>
+
+	<script>
+		// ###Task 1.
+		// Write a function that takes 1 parameter.
+		// On the first call, it remembers it, on the second
+		// it sums the passed parameter
+		// with the parameter passed during the previous call.
+
+		// Example:
+		// ```
+		// sum(3) = 3
+		// sum(5) = 8
+		// sum(228) = 236 
+		// ```
+
+		function sum(x) {
+			sum.x = (sum.x || 0) + x;
+			return  sum.x;
+		}
+
+		console.log(sum(3));
+		console.log(sum(5));
+		console.log(sum(228));
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 2 Homework Task 1</p>
+</body>
+</html>

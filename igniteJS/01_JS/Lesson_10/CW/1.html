@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L10 CW T1</title>
+</head>
+<body>
+    <p>Lesson 10 Classwork Task 1</p>
+
+    <input type="button" id="btnGet" value="Кнопка">
+    <br>
+
+    <script>
+        // ### Задача 1
+        // Создайте страницу с кнопкой. Создайте код, который загрузит на страницу картинку img.jpg (файл находитя в папке classwork) асинхронно через секунду после загрузки страницы. 
+
+        window.onload = function() {
+
+            function loadImage() {
+                var xhr = new XMLHttpRequest();
+
+                xhr.open("GET", "img.jpg", true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var image = new Image();
+                            image.src = xhr.responseURL;
+                            document.body.appendChild(image);
+                        }
+                    }
+                }
+                
+                xhr.send();      
+            }
+
+            setTimeout(loadImage, 1000);     
+        }
+    </script>
+</body>
+</html>

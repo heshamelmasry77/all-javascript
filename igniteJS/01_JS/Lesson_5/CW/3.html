@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>3</title>
+
+    <script>
+    // ### Задача 3
+        // Напишите функцию, которая принимает один аргумент и возвращает его тип данных. Выполните обработку исключений в случае передачи двух и больше аргументов.
+
+        function getType(arg) {
+            try { 
+                if (arguments.length > 1) {
+                    throw new Error("Передано больше, чем 1 параметр");
+                }
+
+                return typeof arg;
+            } 
+
+            catch(e) {
+                return 'Ошибка: ' + e.message;
+            } 
+        }
+
+        alert(getType(10));                 // 'number'
+        alert(getType(10, 2));              // error
+
+        alert(getType(false));              // 'boolean'
+        alert(getType("Hello"));            // 'string'
+        alert(getType(undefined));          // 'undefined'
+        alert(getType(null));               // 'object' (ошибка в языке)
+        alert(getType(document.write));     // 'function'
+        alert(typeof {});                 // 'object'
+        alert(typeof []);                 // 'object'
+        alert(typeof new Date);           // 'object'
+    </script>
+
+</head>
+<body>
+    <p>Lesson 5 Classwork Task 3</p>
+</body>
+</html>

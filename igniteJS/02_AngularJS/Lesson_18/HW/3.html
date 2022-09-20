@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L18 HW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    
+    <style>
+        body { margin: 20px; background-color: #bce; min-height: 1200px; }
+        .dialog { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 50%; min-height: 40%; padding: 20px; border: 4px solid #dcb; border-radius: 15px; background-color: #def; }
+        .dialog h2 { text-align: center; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 3
+        // Создайте директиву dialogBox, которая будет выводить на экран в диалоговом окне содержимое элемента, к которому привязана директива.
+
+        var myApp = angular.module('myApp', [])
+        .directive('dialogBox', function(){
+            return {
+                restrict: 'E',
+                transclude: true,
+                template: '<div class="dialog" ng-transclude></div>',
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 18 Homework Task 3</p>
+
+    <div class="container">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat quibusdam maiores voluptatibus ipsa ducimus iusto consectetur ullam beatae magni illo aliquid voluptate unde quae, animi veniam blanditiis debitis maxime obcaecati asperiores officiis dignissimos? Unde in labore repellat modi aliquam, eligendi nostrum amet maxime ipsam error deserunt qui. Ipsum reprehenderit sit totam molestias quod dolor neque asperiores, nisi at quia, error adipisci voluptatem illo quidem reiciendis minima iste. Sint atque, eaque officia eos! Facilis quae sequi inventore hic natus, excepturi perspiciatis asperiores neque nostrum iure itaque quo similique quaerat repellat, velit harum aliquid. Ab provident deserunt, veritatis, omnis eum cumque animi!</p>
+        
+        <dialog-box>
+            <h2>This is modal</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam voluptas aliquam accusantium suscipit iure, sed consequatur voluptate, architecto quis deleniti quisquam, fugiat voluptates voluptatem eligendi neque consectetur ratione dolore explicabo.</p>
+            <p>There is <b>no</b> close button here!</p>
+        </dialog-box>
+    </div>
+</body>
+</html>

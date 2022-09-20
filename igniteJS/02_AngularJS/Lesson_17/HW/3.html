@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L17 HW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    
+    <style>
+        body { margin: 20px; }
+        .navbar { display: inline-block; padding: 5px 10px; background-color: #ccc;}
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script src="../Libraries/angular_route.js"></script>
+    <script>
+        // ### Задача 3
+        // Создайте директиву для генерации меню. В качестве источника данных директива должна использовать массив объектов, одно из свойств объекта должно содержать текст элемента меню, второе свойство должно использоватся для определения адреса перехода при клике по элементу меню.
+
+        var myApp = angular.module('myApp', [])
+        .controller('MyAppCtrl', function ($scope) {
+
+        })
+        .directive('menu', function () {
+            return {
+                restrict: "A",
+                templateUrl: 'templates/task_3.html',
+                replace: true,
+
+                link: function (scope, element, attributes) {
+                    scope.datas = [
+                        { title: "Home", target: "#"},
+                        { title: "Services", target: '#services'},
+                        { title: "Work", target: '/portfolio'},
+                        { title: "About", target: '/about'},
+                        { title: "Clients", target: '/clients'},
+                        { title: "Contact", target: '/contacts'}];
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 17 Homework Task 3</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <h3>Меню</h3>
+        <div menu></div>
+    </div>
+</body>
+</html>

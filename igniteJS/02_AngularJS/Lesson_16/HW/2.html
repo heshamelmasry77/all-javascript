@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L16 HW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        div p { margin-top: 15px; }
+    </style>
+    
+    <base href="/" />
+
+    <script src="../Libraries/angular.js"></script>
+    <script src="../Libraries/angular_route.js"></script>
+    <script>
+        // ### Задача 2
+        // Добавьте в шаблон страницы home список со свойством name из следующего массива:
+        // var people = [{name: 'Vasya', age: 20, email: 'vasya@mail.ru', employed: false}, 
+        //     {name: 'Masha', age: 25, email: 'm@m', employed: true}, 
+        //     {name: 'Petya', age: 27, email: 'petya@stuff', employed: true}, 
+        //     {name: 'John', age: 36, email: 'johnDoe@mail', employed: true},
+        //     {name: 'Jane', age: 28, email: 'janeDoe@mail', employed: false}]
+        // Добавьте на страницу поддержку htm5Mode.
+
+        var app = angular.module("myApp", ['ngRoute'])
+        .config(function ($routeProvider, $locationProvider) {
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'Task/home_2.html'
+                })
+                .when('/home', {
+                    templateUrl: 'Task/home_2.html',
+                    controller: 'HomeCtrl'
+                })
+                .when('/contact', {
+                    templateUrl: 'Task/contact_2.html'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+
+            $locationProvider.html5Mode(true);
+        })
+        .controller("MyAppCtrl", function ($scope, $location) {
+            $scope.goToHome = function () {
+                $location.path('/home');
+            };
+
+            $scope.goToContacts = function () {
+                $location.path('/contact');
+            };
+        })
+        .controller("HomeCtrl", function ($scope) {
+            $scope.people = [{name: 'Vasya', age: 20, email: 'vasya@mail.ru', employed: false}, 
+                {name: 'Masha', age: 25, email: 'm@m', employed: true}, 
+                {name: 'Petya', age: 27, email: 'petya@stuff', employed: true}, 
+                {name: 'John', age: 36, email: 'johnDoe@mail', employed: true},
+                {name: 'Jane', age: 28, email: 'janeDoe@mail', employed: false}];
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 16 Homework Task 2</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <div class="panel panel-primary">
+            <input class="btn-lg btn-info" ng-click="goToHome()" type="button" value="Home"> 
+            <input class="btn-lg btn-info" ng-click="goToContacts()" type="button" value="Contact"> 
+        </div>
+
+        <div class="panel" ng-view></div>
+    </div>
+</body>
+</html>

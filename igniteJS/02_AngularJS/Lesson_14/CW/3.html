@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L14 CW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 3
+        // Используйте сервис $http для получения данных из файла data.json, который находится в папке data. Отобразите полученные данные на странице в виде таблицы. Предусмотрите обработку ошибок в запросе (используя Promise).
+        
+        var myApp = angular.module('myApp', [])
+        .controller("MyAppCtrl", function($scope, $http) {
+
+            var promise = $http.get("data/data.json");
+            promise.then(fulfilled, rejected);
+
+            function fulfilled(response) {
+                console.log("Status: " + response.status); // status - статус код полученный от сервера
+                console.log("Type: " + response.headers("content-type")); // headers - метод для чтения заголовков ответа
+                console.log("Length: " + response.headers("content-length"));
+                $scope.items = response.data; // data - данные запроса
+            }
+
+            function rejected(error) {
+                console.error(error.status);
+                console.error(error.statusText);
+            }
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 14 Classwork Task 3</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <h3>Массив items</h3>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="item in items" ng-cloak>
+                <td>{{$index + 1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

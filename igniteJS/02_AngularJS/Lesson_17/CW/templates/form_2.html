@@ -1,0 +1,10 @@
+<form name="form" ng-submit="submitHandler()" novalidate>
+    <div class="form-group" ng-repeat="field in fields">
+        <label>{{field.label}}</label>
+        <input type="{{field.type}}" class="input-lg form-control" placeholder="{{field.placeholder}}" ng-model="form[field.model]" ng-pattern="{{field.pattern}}" required>
+    </div>
+
+    <p>* - <b>required fields</b></p>
+
+    <input type="submit" class="btn btn-primary btn-lg" value="Submit" ng-disabled="form.$invalid">
+</form>

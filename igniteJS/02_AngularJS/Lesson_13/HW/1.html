@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L13 HW T1</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        .color { color: blue; }
+        .center { text-align: center; }
+        .bold { font-weight: bold; }
+        div p { font-size: 18px; }
+        label { margin-right: 20px; }
+    </style>
+
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 1
+        // Создайте три разных CSS класса, которые по-разному будут оформлять блок текста на странице. Реализуйте возможность выбирать стиль для оформления страницы с помощью кнопок или checkbox
+
+        var app = angular.module("myApp", [])
+        .controller("MyAppCtrl", function ($scope) {
+
+            $scope.style = {
+                color: false,
+                center: false,
+                bold: false
+            };
+        });
+    </script>
+
+</head>
+<body>
+    <p>Lesson 13 Homework Task 1</p>
+
+    <div class="container" ng-controller="MyAppCtrl" ng-cloak>
+
+        <p ng-class="style">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <br>
+
+        <div class="form-group">
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model='style.color'> Color</label>
+                <label><input type="checkbox" ng-model='style.center'> Center</label>
+                <label><input type="checkbox" ng-model='style.bold'> Bold</label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

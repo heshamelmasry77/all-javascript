@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L17 CW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        .well { padding: 29px 40px; }
+        form .ng-valid.ng-dirty { background-color: lightgreen; }
+        form .ng-invalid.ng-dirty { background-color: lightcoral; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 3
+        // Для формы из предыдущей задачи добавьте валидацию на AngularJS. Используйте регулярные выражения.
+        
+        var myApp = angular.module('myApp', [])
+        .controller('MyAppCtrl', function ($scope, $location) {
+            $scope.fields = [
+                {label: "Username", placeholder: "Ваше имя", model: "username", type: "text", pattern: "usernameRegexp"},
+                {label: "Login*", placeholder: "Логин", model: "login", type: "text", pattern: "loginRegexp"},
+                {label: "E-mail*", placeholder: "E-mail", model: "email", type: "email", pattern: "mailRegexp"},
+                {label: "Password*", placeholder: "Пароль", model: "password", type: "password", pattern: "passRegexp"}];
+        })
+        .directive('regForm', function () {
+            return {
+                link: function (scope, element, attributes) {
+                    scope.usernameRegexp = /^.{3,20}$/;
+                    scope.loginRegexp = /^.{3,20}$/;
+                    scope.mailRegexp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]+$/;
+                    scope.passRegexp = /^.{5,16}$/;
+
+                    scope.submitHandler = function() {
+                        alert('Form submited');
+                    };
+                },
+                restrict: "A",
+                templateUrl: 'templates/form_2.html'
+            };
+       });
+    </script>
+</head>
+<body>
+    <p>Lesson 17 Classwork Task 3</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <h3>Форма регистрации</h3>
+        <div reg-form class="well"></div>
+    </div>
+</body>
+</html>

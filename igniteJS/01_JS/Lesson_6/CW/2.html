@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L6 CW T2</title>
+</head>
+<body>
+    <p>Lesson 6 Classwork Task 2</p>
+
+    <div id="widget" data-widget-name="menu">Выберите жанр</div>
+
+    <script>
+        // ### Задача 2
+        // Напишите код, который получит объект для тега div и запишите его в переменную.
+        // Запишите значение атрибута "data-widget-name" в переменную.
+
+        window.onload = function() {
+            var div = document.getElementById('widget'); 
+            var widgetName = div.dataset.widgetName; 
+
+            console.dir(div);
+            console.log(widgetName);
+        }
+    </script>
+</body>
+</html>

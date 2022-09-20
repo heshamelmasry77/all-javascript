@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L13 HW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        input { margin-bottom: 10px; }
+        .list { margin: 10px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 2
+        // Создайте страницу с десятью тегами div с текстом, полем ввода и кнопкой. Добавьте фильтр, который при вводе значения в поле и после нажатия на кнопку, покажет пользователю только те блоки, текст в которых соответствуют введеному значению. Остальные блоки должны быть скрыты.
+
+        var myApp = angular.module("myApp", [])
+        .controller("MyAppCtrl", function ($scope) {
+
+            $scope.items = [
+                "Lorem ipsum dolor sit amet.", 
+                "Consectetur adipisicing elit.", 
+                "Ullam, necessitatibus cum.", 
+                "Curabitur aliquet quam id dui.", 
+                "Eos cupiditate ab voluptatibus.", 
+                "Tempora alias vitae aliquam distinctio.", 
+                "Adipisci magnam animi.", 
+                "Itaque debitis, commodi eius.", 
+                "Vivamus suscipit tortor eget.", 
+                "Curabitur non nulla sit amet."
+            ];
+            
+            $scope.showMatch = function () {
+                $scope.text = ($scope.input != undefined) ? $scope.input.toLowerCase() : "";
+            };
+
+            $scope.textFilter = function (item) {
+                if (!$scope.text) return item;
+                    
+                item = item.toLowerCase();
+
+                if (item.indexOf($scope.text) != -1) return item;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <p>Lesson 13 Homework Task 2</p>
+
+    <div class="container" ng-controller="MyAppCtrl" ng-cloak>
+        
+        <div class="input-group">
+            <input class="form-control" type="text" ng-model="input" placeholder="Start type some text">
+            <div class="input-group-btn">
+                <input type="button" class="btn btn-default" ng-click="showMatch()" value="Filter">
+            </div>
+        </div>
+
+        <div class="list" ng-repeat="item in items | filter: textFilter">{{item}}</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3</title>
+
+    <script>
+        // ###Task 3.
+        // The following code creates an array of
+        // shooter functions shooters. By design,
+        // each shooter should display his own number:
+        // ```
+
+        // function makeArmy() {
+        // var shooters = [];
+
+        // for (var i = 0; i< 10; i++) {
+        //       var shooter = function() { // arrow-function
+        // alert(i); //  displays your number
+        // };
+        // shooters.push(shooter);
+        // }
+        // return shooters;
+        // }
+        // var army = makeArmy();
+        // army[0](); // // shooter prints 10, but should 0
+        // army[5](); // the shooter displays 10, but should 5.
+
+        // ```
+        // Now all arrow functions output 10 instead of their number.
+        // Correct the code so that when each of them is
+        // called, it displays its own number (index in the array).
+        // Suggest some options.
+
+        function makeArmy() {
+            var shooters = [];
+
+            for (var i = 0; i < 10; i++) {
+                (function (i) {
+                    var shooter = function () { // arrow-function
+                        alert(i); // displays your number
+                    };
+                    shooters.push(shooter);
+                })(i);
+
+                // Var 2
+                // var shooter = function (i) {
+                // 	return function () {
+                // 		alert(i);
+                // 	};
+                // }(i);
+                // shooters.push(shooter);
+            }
+            return shooters;
+        }
+
+        var army = makeArmy();
+        console.log(makeArmy())
+
+        army[0](); // // shooter prints 0
+        army[5](); // shooter outputs 5.
+
+    </script>
+
+</head>
+<body>
+<p>Lesson 2 Classwork Task 3</p>
+</body>
+</html>

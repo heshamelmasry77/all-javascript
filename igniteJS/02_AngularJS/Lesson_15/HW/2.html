@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L15 HW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        div p { margin: 20px 0; font-size: 28px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 2
+        // Разработайте приложение-секундомер. На странице должно быть 3 кнопки:
+        // start – начать отсчет
+        // stop – остановить отсчет
+        // clear – сброс отсчета
+
+        var app = angular.module("myApp", [])
+        .controller("MyAppCtrl", function ($scope, $interval) {
+
+            $scope.minutes = "00";
+            $scope.seconds = "00";
+            $scope.miliseconds = "0";
+            $scope.interval = "";
+
+            $scope.start = function () {
+                if ($scope.interval) return;
+
+                $scope.interval = $interval(function () {
+                    if ($scope.miliseconds < 9) {
+                        $scope.miliseconds++;
+                    } else {
+                        $scope.miliseconds = "0";
+                        $scope.seconds++;
+
+                        if ($scope.seconds <= 9) {
+                            $scope.seconds = "0" + $scope.seconds;
+                        } else if ($scope.seconds == 59){
+                            $scope.seconds = "00";
+                            $scope.minutes++;
+                            
+                            if ($scope.minutes <= 9) {
+                                $scope.minutes = "0" + $scope.minutes;
+                            }
+                        }
+                    }
+                }, 100);
+            };
+
+            $scope.stop = function () {
+                if ($scope.interval) {
+                    $interval.cancel($scope.interval);
+                    $scope.interval = "";
+                }
+            };
+
+            $scope.clear = function () {
+                $scope.stop();
+
+                $scope.minutes = "00";
+                $scope.seconds = "00";
+                $scope.miliseconds = "0";
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <p>Lesson 15 Homework Task 2</p>
+
+    <div class="container" ng-controller="MyAppCtrl" ng-cloak>
+        <p>{{minutes}}:{{seconds}}:{{miliseconds}}</p>
+
+        <button class="btn btn-success" ng-click="start()">Start</button>
+        <button class="btn btn-danger" ng-click="stop()">Stop</button>
+        <button class="btn btn-default" ng-click="clear()">Clear</button>
+    </div>
+</body>
+</html>

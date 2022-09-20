@@ -1,0 +1,22 @@
+@import 'bootstrap.css';
+@import 'bootstrap-theme.css';
+
+@import 'animation.css';
+
+.links-list li {
+    float: left; 
+    margin-left: 20px; 
+    list-style-type: none; 
+} 
+
+#container {
+    height: 155px;
+}
+
+.panel {
+	height: 400px;
+}
+
+.table {
+    width: 400px;
+}

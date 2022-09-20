@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L9 CW T1</title>
+
+    <link rel="stylesheet" href="1.css">
+</head>
+<body>
+    <p>Lesson 9 Classwork Task 1</p>
+
+    <div>Нажмите "Ctrl + A" или "Ctrl + S".</div>
+
+
+    <script>
+        // ### Задача 1
+        // Создайте страницу. Реализуйте следующее:
+        // При нажатии комбинации клавиш ctrl + a (регистр не учитывается!) на экран выводится сообщение ‘Данные выбраны’;
+        // При нажатии комбинации клавиш ctrl + s (регистр не учитывается!) на экран выводится сообщение ‘Данные сохранены’;
+
+        window.onload = function() {
+            window.onkeydown = function(e) {
+                if (e.ctrlKey && e.keyCode == 65) alert('Данные выбраны');
+                if (e.ctrlKey && e.keyCode == 83) alert('Данные сохранены');
+            }
+        }
+    </script>
+</body>
+</html>

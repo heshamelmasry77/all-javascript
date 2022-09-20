@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L13 CW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 3
+        // Используйте таблицу с данными массива items из второй задачи. Напишите свой фильтр, который выведет на экран только те элементы масства items, у которых значение свойства expiration больше 10.
+        
+        var myApp = angular.module('myApp', [])
+        .controller("MyAppCtrl", function($scope) {
+
+            $scope.items = [
+            { name: "B Item", price: 10.9, category: "Category 1", count: 10, tax: 1.12, expiration: 10 },
+            { name: "A Item", price: 1.1, category: "Category 1", count: 8, tax: 0.55, expiration: 12 },
+            { name: "D Item", price: 2.6, category: "Category 2", count: 7, tax: 0.22, expiration: 5 },
+            { name: "C Item", price: 17.5, category: "Category 2", count: 33, tax: 2.77, expiration: 10 }];
+
+            $scope.expFilter = function (item) {
+                if (item.expiration > 10) return item;
+            }
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 13 Classwork Task 3</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <h3>Массив items</h3>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Count</th>
+                    <th>Tax</th>
+                    <th>Expiration</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="item in items | filter: expFilter" ng-cloak>
+                <td>{{$index + 1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.count}}</td>
+                <td>{{item.tax | currency}}</td>
+                <td>{{item.expiration}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

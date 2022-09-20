@@ -1,0 +1,37 @@
+<!--Understanding concept of
+currying and in depth analysis of most frequent interview questions around it-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3</title>
+
+    <script>
+        // ###Task 3.
+        // Write a function that adds numbers when called twice.
+        // For example:
+        // ```
+        // add(3)(4)  // 7
+        // ```
+
+        function add(x) {
+            return function (y) {
+                return x + y;
+            }
+        }
+
+        console.log(add(3)(4));
+    </script>
+
+</head>
+<body>
+<p>Lesson 2 Homework Task 3</p>
+</body>
+</html>
+
+<!--What is currying?-->
+<!--Currying is a technique of evaluating a function with multiple arguments, into sequence of function with single/multiple argument. In above problem, we simply turn up add(2,3) into add(2)(3).-->
+
+
+<!--https://theanubhav.com/2019/02/03/js-currying-in-interview/#first-implement-add23-in-javascript-->

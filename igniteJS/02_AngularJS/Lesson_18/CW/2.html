@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L18 CW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        .well { padding: 29px 40px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 2
+        // Добавьте в код предыдущей задачи еще одну директиву, которая будет выводить значение переменной счетчика в консоль. Организуйте код так, чтобы обе директивы использовали один и тот же контроллер. Используйте свойство require.
+        
+        var myApp = angular.module('myApp', [])
+        .directive('count', function () {
+            return {
+                restrict: 'E',
+                scope: true,
+                templateUrl: 'templates/template_1.html',
+                
+                link: function (scope, elem, attrs) {},
+
+                controller: function ($scope, $interval) {
+                    $scope.counter = 0;
+                    var interval;
+
+                    $scope.startCounter = function () {
+                        if (angular.isDefined(interval)) return;
+
+                        interval = $interval(function () {
+                            $scope.counter++;
+                        }, 1000);
+                    };
+
+                    $scope.showCounter = function () {
+                        $interval(function () {
+                            console.log($scope.counter);
+                        }, 1000);
+                    };
+                }
+            };
+        })
+        .directive('console', function () {
+            return {
+                restrict: 'A',
+                require: 'count',
+                link: function (scope, elem, attrs, countCtrl) {
+                    scope.showCounter();
+                }
+            };
+        })
+    </script>
+</head>
+<body>
+    <p>Lesson 18 Classwork Task 2</p>
+
+    <div class="container">
+        <count console></count>
+    </div>
+</body>
+</html>

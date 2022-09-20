@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L14 CW T2</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 2
+        // Создайте сервис из предыдущей задачи, используя метод провайдера.
+        
+        var myApp = angular.module('myApp', []);
+
+        myApp.provider('clickCounterService', function () {
+
+            return {
+                $get: function () {
+                    var counter = 1;
+
+                    return function () {
+                        var output = 'Click  №' + counter++;
+                        return output;
+                    };
+                }
+            }
+        });
+
+        myApp.controller('MyAppCtrl', ['$scope', 'clickCounterService', function($scope, clickCounterService) {
+            $scope.clickHandler = function() {
+                console.log(clickCounterService());
+            };
+        }]);
+    </script>
+</head>
+<body>
+    <p>Lesson 14 Classwork Task 2</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <button class="btn btn-default" ng-click="clickHandler()">Count clicks</button>
+    </div>
+</body>
+</html>

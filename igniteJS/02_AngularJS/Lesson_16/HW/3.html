@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L16 HW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        div p { margin-top: 15px; font-size: 16px; }
+        ul { list-style-type: none; }
+        ul li { margin: 10px 0; font-size: 16px; }
+        ul li:hover { cursor: pointer; }
+    </style>
+
+    <base href="/" />
+
+    <script src="../Libraries/angular.js"></script>
+    <script src="../Libraries/angular_route.js"></script>
+    <script>
+        // ### Задача 3
+        // Добавьте на страницу следующий функционал:
+        // При клике по элементу списка на странице home, пользователь перенаправляется на страницу contact по адресу ‘/contact + routeParams’, где routeParams – параметры маршрутизации, созданные с помощью сервиса $routeParams, представляющие собой значения свойств массива people для элемента, по которому кликнул пользователь.
+        // Используйте данные, переданные через $routeParams, для автозаполнения формы на странице contact
+
+        var app = angular.module("myApp", ['ngRoute'])
+        .config(function ($routeProvider, $locationProvider) {
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'Task/home_3.html'
+                })
+                .when('/home', {
+                    templateUrl: 'Task/home_3.html',
+                    controller: 'HomeCtrl'
+                })
+                .when('/contact', {
+                    templateUrl: 'Task/contact_3.html',
+                    controller: 'ContactCtrl'
+                })
+                .when('/contact/:name/:age/:email/:employed', {
+                    templateUrl: 'Task/contact_3.html',
+                    controller: 'ContactCtrl'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+
+            $locationProvider.html5Mode(true);
+        })
+        .controller("MyAppCtrl", function ($scope, $location) {
+            $scope.goToHome = function () {
+                $location.path('/home');
+            };
+
+            $scope.goToContacts = function () {
+                $location.path('/contact');
+            };
+        })
+        .controller("HomeCtrl", function ($scope, $location, $routeParams) {
+            $scope.people = [{name: 'Vasya', age: 20, email: 'vasya@mail.ru', employed: false}, 
+                {name: 'Masha', age: 25, email: 'm@m', employed: true}, 
+                {name: 'Petya', age: 27, email: 'petya@stuff', employed: true}, 
+                {name: 'John', age: 36, email: 'johnDoe@mail', employed: true},
+                {name: 'Jane', age: 28, email: 'janeDoe@mail', employed: false}];
+
+            $scope.selectPerson = function (id) {
+                var person = $scope.people[id];
+                var personParams = person.name + '/' + person.age + '/' + encodeURIComponent(person.email) + '/' + person.employed;
+
+                $location.path('/contact/' + personParams);
+            };
+            
+        })
+        .controller("ContactCtrl", function ($scope, $routeParams) {
+            $scope.params = $routeParams;
+
+            if (angular.isDefined($scope.params.email)) {
+                $scope.params.email = decodeURIComponent($scope.params.email);
+            }
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 16 Homework Task 3</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <div class="panel panel-primary">
+            <input class="btn-lg btn-info" ng-click="goToHome()" type="button" value="Home"> 
+            <input class="btn-lg btn-info" ng-click="goToContacts()" type="button" value="Contact"> 
+        </div>
+
+        <div class="panel" ng-view></div>
+    </div>
+</body>
+</html>

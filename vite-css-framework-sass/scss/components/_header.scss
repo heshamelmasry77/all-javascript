@@ -1,0 +1,55 @@
+@mixin fancy-box($background) {
+  background-color: $background;
+  padding: 64px;
+  border-radius: 8px;
+  margin: 16px;
+  height: 400px;
+  width: 100%;
+}
+
+@mixin default-btn($size) {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  border-radius: 16px;
+}
+
+.head {
+  color: $brand-primary;
+}
+
+.head__3 {
+  color: darkblue;
+  @include fancy-box(orange)
+}
+
+.btn {
+  @include default-btn(16px);
+
+  &.primary {
+    font-size: 120px;
+  }
+
+  &.secondary {
+    font-size: 64px;
+  }
+}
+
+//
+//.btn.primary {
+//  font-size: 120px;
+//}
+
+.hero-banner {
+  border: 1px solid green;
+  height: 500px;
+  width: 500px;
+  background-color: black;
+}
+
+.noroff__main__banner {
+  @extend .hero-banner;
+}

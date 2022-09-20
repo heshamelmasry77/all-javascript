@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L12 HW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+	<link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+	<style>
+		body { margin: 20px; }
+		ul { list-style-type: none; }
+		label:hover { cursor: pointer; }
+		p {margin: 0;}		
+		.questions { margin: 0 30px;}
+		.answers { margin: 30px 0; border: 1px solid #ccc; min-height: 180px; }
+		.results { margin-top: 10px; }
+		.results p { margin-bottom: 10px; }
+	</style>
+
+    <script src="../Libraries/angular.js"></script>
+	<script>
+		// ### Задача 3
+        // Реализуйте SPA приложение, в котором пользователю представляется пройти тест из 5 вопросов, в каждом вопросе по 4 варианта ответа. Вопросы должны выбираться с помощью radio-button и когда выбран, например, вопрос №1, то на странице должны появится варианты ответа только для этого вопроса. В конце тестирования отобразите результат теста. При решении данной задачи используйте директиву ng-switch.
+
+		// Модель
+		var model = [
+			{
+				question:'Вопрос 1: Млечный путь - это...',
+				answers: {
+					ans1:'Галактика',
+					ans2:'Скопление звезд',
+					ans3:'Парад планет',
+					ans4:"Солнечная система"
+				},
+				rightAnswer: 1
+			},
+			{
+				question:'Вопрос 2: Как можно из Евразии пешком добраться в Северную Америку?',
+				answers: {
+					ans1:'Через перешеек в Беринговом проливе',
+					ans2:'По льду из Чукотки на Аляску',
+					ans3:'Но новому Евро-Американскому мосту',
+					ans4:"Никак"
+				},
+				rightAnswer: 4
+			},
+			{
+				question:'Вопрос 3: Туфелька-инфузория - это...',
+				answers: {
+					ans1:'Бактерия',
+					ans2:'Вирус',
+					ans3:'Простейший, одноклеточный организм',
+					ans4:"Модная обувь"
+				},
+				rightAnswer: 3
+			},
+			{
+				question:'Вопрос 4:  Кто написал "Лунную сонату"?',
+				answers: {
+					ans1:'Бах',
+					ans2:'Бетховен',
+					ans3:'Чайковский',
+					ans4:"Шопен"
+				},
+				rightAnswer: 2
+			},
+			{
+				question:'Вопрос 5: Единица измерения "Нано" это...:',
+				answers: {
+					ans1:'Миллионная часть',
+					ans2:'Миллиардная часть',
+					ans3:'Триллионная часть',
+					ans4:"Квинтиллионная часть"
+				},
+				rightAnswer: 2
+			}
+		];
+
+		// Модуль
+		var app = angular.module('myApp', []);
+
+		// Контроллер
+		app.controller('myAppCtrl', function ($scope) {
+			$scope.data = model;
+			
+			$scope.chosenAnswers = {
+				0: 0,
+				1: 0,
+				2: 0,
+				3: 0,
+				4: 0
+			};
+
+			$scope.res = {};
+
+			$scope.getRes = function () {
+				for (var key in $scope.chosenAnswers) {
+					$scope.res[key] = $scope.chosenAnswers[key];
+				}
+			}
+
+			$scope.selectQuestion = function ($event) {
+				$scope.questionItem = $event.target;
+				$scope.chosen = $scope.questionItem.value;
+			}
+		});
+	</script>
+</head>
+
+<body ng-controller="myAppCtrl">
+
+	<div ng-repeat="item in data" class="questions">
+		<label>
+			<input name="question" type="radio" value="{{$index}}" ng-model="chosen" ng-click="selectQuestion($event)"> {{item.question}}
+		</label>
+	</div>
+
+	<div class="answers" ng-switch on="chosen">
+		<ul ng-switch-when="0">
+			<li><h4>{{data[0].question}}</h4></li>
+			<li ng-repeat="answer in data[0].answers">
+				<label><input type="radio" value="{{$index+1}}" ng-model="chosenAnswers[0]"> {{$index+1}}. {{answer}}</label>
+			</li>
+		</ul>
+
+		<ul ng-switch-when="1">
+			<li><h4>{{data[1].question}}</h4></li>
+			<li ng-repeat="answer in data[1].answers">
+				<label><input type="radio" value="{{$index+1}}" ng-model="chosenAnswers[1]"> {{$index+1}}. {{answer}}</label>
+			</li>
+		</ul>
+
+		<ul ng-switch-when="2">
+			<li><h4>{{data[2].question}}</h4></li>
+			<li ng-repeat="answer in data[2].answers">
+				<label><input type="radio" value="{{$index+1}}" ng-model="chosenAnswers[2]"> {{$index+1}}. {{answer}}</label> 
+			</li>
+		</ul>
+
+		<ul ng-switch-when="3">
+			<li><h4>{{data[3].question}}</h4></li>
+			<li ng-repeat="answer in data[3].answers">
+				<label><input type="radio" value="{{$index+1}}" ng-model="chosenAnswers[3]"> {{$index+1}}. {{answer}}</label>
+			</li>
+		</ul>
+
+		<ul ng-switch-when="4">
+			<li><h4>{{data[4].question}}</h4></li>
+			<li ng-repeat="answer in data[4].answers">
+				<label><input type="radio" value="{{$index+1}}" ng-model="chosenAnswers[4]"> {{$index+1}}. {{answer}}</label>
+			</li>
+		</ul>
+
+		<ul ng-switch-default>
+			<li><h4>Для начала теста выбирите любой вопрос.</h4></li>
+		</ul>
+	</div>
+
+	<button ng-click="getRes()">Узнать результат</button>
+
+	<div class='results'>
+		<p ng-repeat="item in res">
+			{{$index+1}}. Ваш ответ: <b>{{data[$index].answers['ans' + item] || 'не выбран'}}</b>. Правильный ответ: <b>{{data[$index].answers['ans' + data[$index].rightAnswer]}}</b>
+		</p>
+	</div>
+</body>
+</html>

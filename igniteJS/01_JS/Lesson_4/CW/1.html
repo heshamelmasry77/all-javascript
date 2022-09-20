@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1</title>
+
+	<script>
+		// ###Задача 1 
+		// Напишите функцию sumArgs, которая суммирует все свои аргументы. При решении задачи используйте метод call или apply.
+
+		function sumArgs() {
+			var result = 0;
+
+			[].forEach.call(arguments, function(item) {
+				result += item;
+			});	
+
+			return result;
+
+			// Var 2
+			// return [].reduce.call(arguments, function(a, b) {
+			// 	return a + b;
+			// });	
+		};
+		
+		alert(sumArgs(4, 9, 6, 2));	//21
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 4 Classwork Task 1</p>
+</body>
+</html>

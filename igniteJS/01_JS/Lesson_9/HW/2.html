@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L9 HW T2</title>
+
+    <style>
+        body { margin: 0; padding: 0; position: relative; height: 100%; width: 100%; overflow: hidden; }
+        #ball, span { width: 100px; height: 100px; }
+        #ball { position: absolute; border-radius: 50%; background-color: red; text-align: center; cursor: pointer; }
+        span { display: table-cell; vertical-align: middle; font-size: 20px; color: #fff; }
+    </style>
+</head>
+<body>
+    <div id="ball">
+        <span>Скидка</span>
+    </div>
+    
+    <script>
+        // ### Задача 2
+        // Создайте круг красного цвета с надписью "Скидка". Когда курсор пользователя будет приближаться к ней, "Скидка" должна от него "убегать", не давая пользователю нажать на красный круг. Если круг будет выйдет за одну из сторон экрана, то он должен, появится с противоположной стороны.
+
+        window.onload = function() {
+            var ball = document.getElementById('ball');
+            var ballStyle = getComputedStyle(ball);
+            var ballHeight = parseInt(ballStyle.height);
+            var ballWidth = parseInt(ballStyle.width);
+            var limit = parseInt(ballStyle.borderRadius)/2;
+
+            ball.style.top = Math.random() * (window.innerHeight - ballHeight) + 'px';
+            ball.style.left = Math.random() * (window.innerWidth - ballWidth) + 'px';
+
+            document.onmousemove = function (e) {
+                var positionTop = parseInt(ball.style.top);
+                var positionLeft = parseInt(ball.style.left);
+
+                var topBorder = positionTop - limit;
+                var bottomBorder = positionTop + ballHeight + limit;
+                var leftBorder = positionLeft - limit;
+                var rightBorder = positionLeft +  ballWidth + limit;
+
+                if ((e.clientY >= topBorder && e.clientY <= bottomBorder) && (e.clientX >= leftBorder && e.clientX <= rightBorder)) {
+                    // Подход слева
+                    if (e.clientX >= leftBorder && e.clientX <= (leftBorder + ballWidth/2)) {
+                        ball.style.left = ((e.clientX + limit) < (window.innerWidth - ballHeight)) ? (e.clientX + limit + 'px') : (limit + 'px');
+                    }
+                    // Подход справа
+                    if (e.clientX <= rightBorder && e.clientX >= (rightBorder - ballWidth/2)) {
+                        ball.style.left = ((e.clientX - ballWidth - limit) > 0) ? (e.clientX - ballWidth - limit + 'px') : (window.innerWidth - ballWidth - limit + 'px');
+                    }
+                    // Подход сверху
+                    if (e.clientY >= topBorder && e.clientY <= (topBorder + ballHeight/2)) {
+                        ball.style.top = ((e.clientY + limit < window.innerHeight - ballHeight)) ? (e.clientY + limit + 'px') : (limit + 'px');
+                    }
+                    // Подход снизу
+                    if (e.clientY <= bottomBorder && e.clientY >= (bottomBorder - ballHeight/2)) {
+                        ball.style.top = (e.clientY - ballHeight - limit > 0) ? (e.clientY - ballHeight - limit + 'px') : (window.innerHeight - ballHeight - limit + 'px');
+                    }
+                }
+            } 
+        }
+    </script>
+</body>
+</html>

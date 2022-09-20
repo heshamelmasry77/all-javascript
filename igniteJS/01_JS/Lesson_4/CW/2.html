@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2</title>
+
+	<script>
+		// ###Задача 2  
+		// Перепишите с использованием встроенного метода bind:
+
+		// function bind(func, context) {
+		//   return function() {
+		//     return func.apply(context, arguments);
+		//   };
+		// }
+
+		// var user = {
+		//   firstName: "Вася",
+		//   sayHi: function() {
+		//     alert( this.firstName );
+		//   }
+		// }; 
+
+		// var f = bind(user.sayHi, user);  
+		// f();
+
+		var user = {
+			firstName: "Вася",
+			sayHi: function() {
+				alert(this.firstName);
+			}
+		};
+
+		var f = user.sayHi.bind(user);
+
+		f();
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 4 Classwork Task 2</p>
+</body>
+</html>

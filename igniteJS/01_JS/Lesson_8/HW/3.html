@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L8 HW T3</title>
+
+    <style>
+        input { margin-bottom: 10px; width: 50px; text-align: right; }
+        div { margin-bottom: 10px; }
+        .number { width: 80px; }
+        .result { width: 120px; }
+        .calculator { width: 200px; padding: 0 20px; border: 1px solid green; text-align: center; }
+        .calculator > p {text-align: center;}
+    </style>
+</head>
+<body>
+    <p>Lesson 8 Homework Task 3</p>
+
+    <div class="calculator">
+        <p>Калькулятор</p>
+
+        <input type="text" class="number" name="first_num" value="0">
+        <input type="text" class="number" name="second_num" value="0">
+
+        <div>
+            <button name="sum" onclick="calculate('sum');">+</button>
+            <button name="substract" onclick="calculate('substract');">-</button>
+            <button name="multiply" onclick="calculate('multiply');">*</button>
+            <button name="divide" onclick="calculate('divide');">/</button>
+        </div>
+        
+        <p>Результат</p>
+        <input type="text" class="result" name="result">
+    </div>
+
+    <script>
+        // ### Задача 3
+        // Создайте страницу-калькулятор. Разместите на странице два поля ввода и кнопки для арифметических операций над данными введенными в поля ввода. Реализуйте данную страницу двумя способами – с использованием модели DOM Level 0 (через атрибуты) и DOM Level 2.
+
+        function calculate(operation) {
+            var value1 = +document.getElementsByName('first_num')[0].value;
+            var value2 = +document.getElementsByName('second_num')[0].value;
+
+            if (!isNumeric(value1) || !isNumeric(value2)) {
+                return alert('Введите корректные числовые значения в поля!');
+            }
+
+            var res = 0;
+
+            switch (operation) {
+                case 'sum':
+                    res = (value1 + value2);
+                    break;
+                case 'substract': 
+                    res = (value1 - value2);
+                    break;
+                case 'multiply':
+                    res = (value1 * value2);
+                    break;
+                case 'divide': {
+                    if (value2 === 0) return alert('Деление на ноль!');
+                    res = (value1 / value2).toFixed(3);
+                    break;
+                }
+            };
+
+            var result = document.getElementsByName('result')[0];
+            result.value = res;
+        };
+
+        function isNumeric(arg) {
+            return !isNaN(arg) && isFinite(arg);
+        };
+    </script>
+</body>
+</html>

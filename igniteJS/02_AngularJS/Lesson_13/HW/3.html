@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L12 HW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 20px; }
+        p { margin: 10px 0 15px; }	
+        form .ng-valid.ng-dirty { background-color: lightgreen; }
+        form .ng-invalid.ng-dirty { background-color: lightcoral; }
+    </style>
+
+    <script src="../Libraries/angular.js"></script>
+    <script>
+        // ### Задача 3
+        // Создайте форму для регистрации нового пользователя. Форма должна содержать поля: ФИО, email, телефон, пароль, подтверждение пароля. Реализуйте real-time валидацию пользовательского ввода.
+
+        var app = angular.module('myApp', [])
+        .controller('myAppCtrl', function ($scope) {
+            
+            $scope.nameRegexp = /^.{3,20}$/;
+            $scope.mailRegexp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]+$/;
+            $scope.phoneRegexp = /^[0-9]*$/;
+
+            $scope.submitHandler = function() {
+                alert('Form submited');
+            };
+
+            $scope.comparePass = function() {
+                if (!$scope.form.passwordConfirm) return;
+
+                $scope.passMatch = angular.equals($scope.form.password, $scope.form.passwordConfirm);
+    
+                $scope.match = (!$scope.passMatch) ? 'ng-invalid' : 'ng-valid';
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <p>Lesson 13 Homework Task 3</p>
+
+	<div class="container" ng-controller="myAppCtrl">
+        <form name="form" ng-submit="submitHandler()" novalidate>
+            <div class="form-group">
+                <label>Name*</label>
+                <input type="text" class="input-lg form-control" placeholder="ФИО" ng-model="form.name" ng-pattern="nameRegexp" required>
+            </div>
+
+            <div class="form-group">
+                <label>E-mail*</label>
+                <input type="email" class="input-lg form-control" placeholder="E-mail" ng-model="form.email" ng-pattern="mailRegexp" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone number</label>
+                <input type="tel" class="input-lg form-control" placeholder="Телефон" ng-model="form.phone" ng-pattern="phoneRegexp">
+            </div>
+
+            <div class="form-group">
+                <label>Password*</label>
+                <input type="password" class="input-lg form-control" placeholder="Пароль" ng-model="form.password" ng-keyup="comparePass()" required>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm password*</label>
+                <input type="password" class="input-lg form-control" ng-class="match" placeholder="Подтверждение пароля" ng-model="form.passwordConfirm" ng-keyup="comparePass()" required>
+            </div>
+
+            <p>* - <b>required fields</b></p>
+
+            <input type="submit" class="btn btn-primary btn-lg" value="Submit" ng-disabled="form.$invalid || !passMatch">
+        </form>
+    </div>
+</body>
+</html>

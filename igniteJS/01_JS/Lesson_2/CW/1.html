@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1</title>
+
+    <script>
+
+        // ###Task 1.
+        // What will be the result of executing this code?
+        // ```
+        // var value = 0;
+        // function f() {
+        // if (1) {
+        // value = true;
+        // } else {
+        // var value = false;
+        // }
+        // alert(value);
+        // }
+        // f();
+        // ```
+        // Will the external variable value change?
+        // How will the result change if the var keyword
+        // is removed from the string var value = false?
+        var value = 0;
+
+        function f() {
+            if (1) {
+                value = true;
+            } else {
+                var value = false;
+            }
+
+            alert(value);
+        }
+
+        f();
+    </script>
+
+</head>
+<body>
+<p>Lesson 2 Classwork Task 1</p>
+<ol>
+    <li>true. 1 is a true value, so the if</li>
+    code is always executed
+    <li>No, because the function body contains a declaration of this variable and the variable raising mechanism is
+        triggered.
+    </li>
+    <li>The result is the same - true, the value of the global variable value is changed to true</li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SetInterval</title>
+    <script src="js/script.js" defer></script>
+    <!--    defer. This Boolean attribute is set to indicate to -->
+    <!--    a browser that the script is meant to be executed after-->
+    <!--    the document has been parsed, but before firing DOMContentLoaded .-->
+    <!--    Scripts with the defer attribute will prevent the -->
+    <!--    DOMContentLoaded event from firing until the script has-->
+    <!--    loaded and finished evaluating-->
+    <style>
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+        ul li {
+            background: red;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            font-family: monospace;
+            margin: 10px 15px 10px 15px;
+        }
+        select {
+            height: 40px;
+            border-radius: 5px;
+            text-transform: capitalize;
+            padding: 0 15px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="container">
+        <label>
+            <select>
+                <option value="">select an option</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
+        </label>
+    </div>
+    <ul class="circles-container">
+        <li class="circle-single-item">.</li>
+    </ul>
+</main>
+</body>
+</html>

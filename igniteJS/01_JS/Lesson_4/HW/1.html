@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1</title>
+
+	<script>
+		// ###Задача 1  
+		// Представьте, что в JavaScript нет метода call, есть только метод apply. Используя apply, напишите метод call.
+
+		Function.prototype.call = function() {
+			var context = arguments[0],
+				arr = [].slice.apply(arguments, [1]);
+				
+			return this.apply(context, arr); 
+		}
+
+		function greet(arg1, arg2) {
+			return this[arg1] + " " + this[arg2];
+		};
+
+		var obj = {
+			"name": "Алексей",
+			"surname": "Сидоров" 
+		}
+
+		alert(greet.call(obj, 'name', 'surname'));
+	</script>
+	
+</head>
+<body>
+	<p>Lesson 4 Homework Task 1</p>
+</body>
+</html>

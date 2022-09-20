@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>L15 CW T3</title>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script src="../Libraries/angular.js"></script>
+    <script src="../Libraries/angular-cookies.js"></script>
+    <script>
+        // ### Задача 3
+        // Разработайте сервис, которой можно будет использовать для записи данных в cookie. Продемонстрируйте работу сервиса.
+        
+        var myApp = angular.module('myApp', ['ngCookies'])
+
+        function makeCookie() {
+            return function (cookieStore, id, value, output) {
+                if (!id || !value) return;
+
+                var now = new Date(),
+                exp = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+
+                cookieStore.put(id, value, {expires: exp});
+
+                var myCookie = cookieStore.get(id);
+                output.push({value: myCookie, id: id});
+            };
+        }
+
+        myApp.service("cookieMaker", makeCookie);
+
+        myApp.controller("MyAppCtrl", function ($scope, $cookieStore, cookieMaker) {
+
+            $scope.cookieId = '';
+            $scope.cookieVal = '';
+            $scope.output = [];
+
+            $scope.saveCookie = function () {
+                cookieMaker($cookieStore, $scope.cookieId, $scope.cookieVal, $scope.output);
+
+                $scope.cookieId = '';
+                $scope.cookieVal = '';
+            };
+        });
+    </script>
+</head>
+<body>
+    <p>Lesson 15 Classwork Task 3</p>
+
+    <div class="container" ng-controller="MyAppCtrl">
+        <h3>ID</h3>
+        <input type="text" ng-model="cookieId" placeholder="Cookie ID" class="form-control">
+        
+        <h3>Value</h3>
+        <input type="text" ng-model="cookieVal" placeholder="Cookie Value" class="form-control">
+        <br>
+        
+        <button class="btn btn-success" ng-click="saveCookie()">Save Cookie</button><br><br>
+        <p ng-repeat="item in output"><b>Saved cookie</b> <br> Cookie ID: {{item.id}} &nbsp; Cookie Value: {{item.value}}</p>
+    </div>
+</body>
+</html>
